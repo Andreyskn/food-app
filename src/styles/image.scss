@@ -1,0 +1,17 @@
+.image {
+	&--rounded {
+		border-radius: 50%;
+	}
+
+	&--border-accent {
+		padding: 6px;
+
+		background-color: #ed5567;
+	}
+
+	&--border-contrast {
+		padding: 6px;
+
+		background-color: white;
+	}
+}

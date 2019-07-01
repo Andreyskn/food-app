@@ -1,0 +1,15 @@
+.text {
+	text-align: center;
+
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	line-height: 1.4;
+
+	&--color-contrast {
+		color: white;
+	}
+
+	> span {
+		color: #ed5567;
+	}
+}

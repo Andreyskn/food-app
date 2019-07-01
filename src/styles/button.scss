@@ -1,0 +1,47 @@
+.button {
+	display: flex;
+
+	width: 100%;
+	height: 40px;
+	padding: 0 10px;
+
+	color: #ed5567;
+	border: none;
+	border-radius: 15px;
+	outline: none;
+	background-color: white;
+
+	font-family: 'Roboto', sans-serif;
+	font-size: 12px;
+	font-weight: 500;
+
+	align-items: center;
+	justify-content: center;
+
+	> .icon:not(:only-child) {
+		margin-right: 5px;
+	}
+
+	&:disabled {
+		user-select: none;
+		pointer-events: none;
+
+		opacity: .32;
+	}
+
+	&[class*='--background'] {
+		color: white;
+	}
+
+	&--background-accent {
+		background-color: #ed5567;
+	}
+
+	&--background-transparent {
+		background-color: rgba(#ffffff, .35);
+	}
+
+	&--background-none {
+		background-color: transparent;
+	}
+}

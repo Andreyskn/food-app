@@ -1,0 +1,52 @@
+$root: '.tile-set';
+$item: #{$root}__item;
+
+#{$root} {
+	display: flex;
+	overflow: hidden;
+
+	border-radius: 15px;
+
+	&--direction-column {
+		flex-direction: column;
+
+		#{$item}--background-contrast+ #{$item}--background-contrast:before,
+		#{$item}--background-transparent+ #{$item}--background-transparent:before,
+		#{$item}:not([class*='--background'])+ #{$item}:not([class*='--background']):before {
+			position: absolute;
+			top: 0;
+			left: 20px;
+
+			width: calc(100% - 40px);
+			height: 1px;
+
+			content: '';
+
+			background-color: rgba(#333333, .1);
+		}
+	}
+
+	#{$item} {
+		position: relative;
+
+		&--padding-large {
+			padding: 20px;
+		}
+
+		&--padding-medium {
+			padding: 15px;
+		}
+
+		&--padding-small {
+			padding: 10px;
+		}
+
+		&--background-contrast {
+			background-color: white;
+		}
+
+		&--background-transparent {
+			background-color: rgba(#ffffff, .15);
+		}
+	}
+}

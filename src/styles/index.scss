@@ -1,0 +1,30 @@
+@import './fonts.scss';
+@import './base.scss';
+@import './components.scss';
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	height: 100vh;
+	padding: 45px;
+
+	background: linear-gradient(-50deg, rgba(#de3b73, .9), rgba(#ed5567, .9));
+
+	align-items: center;
+
+	> .image {
+		margin-top: 130px;
+		margin-bottom: 25px;
+	}
+
+	> .text {
+		margin-bottom: 20px;
+		margin-top: auto;
+	}
+}
+
+.actions {
+	margin-top: auto;
+}

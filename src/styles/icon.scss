@@ -1,0 +1,12 @@
+.icon {
+	width: 18px;
+	height: 18px;
+
+	> svg {
+		fill: currentColor;
+	}
+
+	&--rotate-45> svg {
+		transform: rotate(45deg);
+	}
+}

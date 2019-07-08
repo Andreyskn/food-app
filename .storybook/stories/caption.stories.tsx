@@ -2,27 +2,27 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, radios } from '@storybook/addon-knobs';
 
-import { Heading, HeadingProps } from '../../src/components';
+import { Caption, CaptionProps } from '../../src/components';
 import { Container } from '../utils/Container';
 
-storiesOf('Components', module).add('Heading', () => {
-	const props: HeadingProps = {
-		size: radios<HeadingProps['size']>(
+storiesOf('Components', module).add('Caption', () => {
+	const props: CaptionProps = {
+		size: radios<CaptionProps['size']>(
 			'Size',
 			{ Large: 'large', Medium: 'medium', Small: 'small' },
 			'large'
 		),
-		color: radios<HeadingProps['color']>(
+		color: radios<CaptionProps['color']>(
 			'Color',
 			{ Default: 'default', Contrast: 'contrast', Accent: 'accent' },
 			'contrast'
 		),
-		align: radios<HeadingProps['align']>(
+		align: radios<CaptionProps['align']>(
 			'Align',
 			{ Left: 'left', Center: 'center', Right: 'right' },
 			'left'
 		),
-		weight: radios<HeadingProps['weight']>(
+		weight: radios<CaptionProps['weight']>(
 			'Font Weight',
 			{ Light: 'light', Regular: 'regular', Medium: 'medium', Bold: 'bold' },
 			'light',
@@ -39,7 +39,7 @@ storiesOf('Components', module).add('Heading', () => {
 
 	return (
 		<Container backgroundColor={backgroundColor}>
-			<Heading {...props}>Заказ в процессе</Heading>
+			<Caption {...props}>Заказ в процессе</Caption>
 		</Container>
 	);
 });

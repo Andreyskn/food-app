@@ -5,7 +5,6 @@
 .wrapper {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 
 	height: 100vh;
 	padding: 45px;
@@ -20,11 +19,35 @@
 	}
 
 	> .text {
-		margin-bottom: 20px;
 		margin-top: auto;
+		margin-bottom: 20px;
+	}
+
+	&--white {
+		background: white;
 	}
 }
 
-.actions {
-	margin-top: auto;
+.heading-wrapper {
+	display: flex;
+
+	width: 100%;
+
+	justify-content: space-between;
+}
+
+.restaurant-tile {
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+	padding: 15px;
+
+	background-color: #f0f0f0;
+
+	justify-content: space-around;
+
+	.heading-wrapper {
+		justify-content: space-around;
+	}
 }

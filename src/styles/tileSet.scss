@@ -10,9 +10,7 @@ $item: #{$root}__item;
 	&--direction-column {
 		flex-direction: column;
 
-		#{$item}--background-contrast+ #{$item}--background-contrast:before,
-		#{$item}--background-transparent+ #{$item}--background-transparent:before,
-		#{$item}:not([class*='--background'])+ #{$item}:not([class*='--background']):before {
+		#{$item}--background-contrast+ #{$item}--background-contrast:before, #{$item}--background-transparent+ #{$item}--background-transparent:before, #{$item}:not([class*='--background'])+ #{$item}:not([class*='--background']):before {
 			position: absolute;
 			top: 0;
 			left: 20px;
@@ -28,6 +26,11 @@ $item: #{$root}__item;
 
 	#{$item} {
 		position: relative;
+
+		display: flex;
+
+		align-items: center;
+		justify-content: center;
 
 		&--padding-large {
 			padding: 20px;

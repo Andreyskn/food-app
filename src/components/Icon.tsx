@@ -19,7 +19,7 @@ export const Icon: React.FC<IconProps> = (props) => {
 
 	const iconClass = classnames(
 		iconBlock,
-		{ [iconModifier(`rotate-${rotate}`)]: rotate },
+		{ [iconModifier({ rotate })]: rotate },
 	)
 
 	return <i className={iconClass}>{icons[name]}</i>;

@@ -9,21 +9,21 @@ export type ImageProps = {
 	width?: number | string;
 }
 
-const defaultProps: Partial<ImageProps> = {
-	border: 'none',
-}
-
 const [imageBlock, imageModifier] = useBEM('image');
 
 export const Image: React.FC<ImageProps> = (props) => {
 	const { src, rounded, border, width } = props;
 
-	const [isDefaultProp] = useProps(props, defaultProps);
+	const [isDefaultProp] = useProps(props, Image.defaultProps!);
 	const imageClass = classnames(
 		imageBlock,
+		{ [imageModifier({ border })]: !isDefaultProp('border') },
 		{ [imageModifier('rounded')]: rounded },
-		{ [imageModifier(`border-${border}`)]: !isDefaultProp('border') },
 	)
 
 	return <img src={src} className={imageClass} style={{ width, height: width }} />
+}
+
+Image.defaultProps = {
+	border: 'none',
 }

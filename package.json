@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "start": "yarn dev",
-    "storybook": "start-storybook -p 6006 -c .storybook"
+    "story": "start-storybook -p 6006 -c .storybook"
   },
   "dependencies": {
     "classnames": "^2.2.6",

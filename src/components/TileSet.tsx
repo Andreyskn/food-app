@@ -2,60 +2,49 @@ import React from 'react';
 import classnames from 'classnames';
 import { useBEM, useProps } from '../utils';
 
-export type TileSetItem = {
-	content: React.ReactNode;
+export type TileSetProps = {
+	direction?: 'row' | 'column';
+}
+
+const [tileSetBlock, tileSetModifier, tileSetElement] = useBEM('tile-set');
+
+export const TileSet: React.FC<TileSetProps> = (props) => {
+	const { direction, children } = props;
+
+	const [isDefaultProp] = useProps(props, TileSet.defaultProps!);
+	const tileSetClass = classnames(
+		tileSetBlock,
+		{ [tileSetModifier({ direction })]: !isDefaultProp('direction') },
+	);
+
+	return <div className={tileSetClass}>{children}</div>;
+}
+
+TileSet.defaultProps = {
+	direction: 'row',
+}
+
+export type TileProps = {
 	background?: 'contrast' | 'transparent' | 'none';
 	padding?: 'large' | 'medium' | 'small' | 'none';
 }
 
-export type TileSetProps = {
-	direction?: 'row' | 'column';
-	items: TileSetItem[];
-}
+const [tileElement, tileModifier] = tileSetElement('item');
 
-type DefaultProps = { tileSet: Partial<TileSetProps>, item: Partial<TileSetItem> };
-const defaultProps: DefaultProps = {
-	tileSet: {
-		direction: 'row',
-	},
-	item: {
-		background: 'none',
-		padding: 'none',
-	},
-}
+export const Tile: React.FC<TileProps> = (props) => {
+	const { background, padding, children } = props;
 
-const [tileSetBlock, tileSetModifier, tileSetElement] = useBEM('tile-set');
-const [itemElement, itemModifier] = tileSetElement('item');
-
-export const TileSet: React.FC<TileSetProps> = (props) => {
-	const { items, direction } = props;
-
-	const [isDefaultProp] = useProps(props, defaultProps.tileSet);
-	const tileSetClass = classnames(
-		tileSetBlock,
-		{ [tileSetModifier(`direction-${direction}`)]: !isDefaultProp('direction') },
-	);
-
-	return (
-		<div className={tileSetClass}>
-			{renderItems(items)}
-		</div>
-	);
-}
-
-const renderItems = (items: TileSetItem[]) => items.map(item => {
-	const { content, ...itemProps } = item;
-	if (!content) return null;
-
-	const { background, padding } = itemProps;
-	const [isDefaultProp] = useProps(itemProps, defaultProps.item);
+	const [isDefaultProp] = useProps(props, Tile.defaultProps!);
 	const itemClass = classnames(
-		itemElement,
-		{ [itemModifier(`background-${background}`)]: !isDefaultProp('background') },
-		{ [itemModifier(`padding-${padding}`)]: !isDefaultProp('padding') },
+		tileElement,
+		{ [tileModifier({ background })]: !isDefaultProp('background') },
+		{ [tileModifier({ padding })]: !isDefaultProp('padding') },
 	);
 
-	return <div className={itemClass}>{content}</div>;
-});
+	return <div className={itemClass}>{children}</div>;
+} 
 
-
+Tile.defaultProps = {
+	background: 'none',
+	padding: 'none',
+}

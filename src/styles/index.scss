@@ -6,7 +6,7 @@
 	display: flex;
 	flex-direction: column;
 
-	height: 100vh;
+	min-height: 100vh;
 	padding: 45px;
 
 	background: linear-gradient(-50deg, rgba(#de3b73, .9), rgba(#ed5567, .9));
@@ -24,7 +24,7 @@
 	}
 
 	&--white {
-		background: white;
+		background: #f6f6f6;
 	}
 }
 
@@ -34,20 +34,5 @@
 	width: 100%;
 
 	justify-content: space-between;
-}
-
-.restaurant-tile {
-	display: flex;
-	flex-direction: column;
-
-	height: 100%;
-	padding: 15px;
-
-	background-color: #f0f0f0;
-
-	justify-content: space-around;
-
-	.heading-wrapper {
-		justify-content: space-around;
-	}
+	align-items: center;
 }

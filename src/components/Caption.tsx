@@ -7,7 +7,6 @@ export type CaptionProps = {
 		text: string;
 		uppercase?: boolean;
 		brighten?: boolean;
-		fontSize?: React.CSSProperties['fontSize'];
 	};
 	size?: 'small' | 'medium' | 'large';
 	color?: 'default' | 'contrast' | 'accent';
@@ -36,12 +35,11 @@ export const Caption: React.FC<CaptionProps> = (props) => {
 		{ [subtitleModifier('uppercase')]: subtitle!.uppercase },
 		{ [subtitleModifier('brighten')]: subtitle!.brighten },
 	)
-	const subtitleStyle = subtitle && subtitle.fontSize && { fontSize: subtitle.fontSize } || undefined;
 
 	return (
 		<div className={titleClass}>
 			{children && <div className={titleElement}>{children}</div>}
-			{subtitle && <div className={getSubtitleClass()} style={subtitleStyle}>{subtitle.text}</div>}
+			{subtitle && <div className={getSubtitleClass()}>{subtitle.text}</div>}
 		</div>
 	)
 }

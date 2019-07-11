@@ -20,8 +20,9 @@ export const Image: React.FC<ImageProps> = (props) => {
 		{ [imageModifier({ border })]: !isDefaultProp('border') },
 		{ [imageModifier('rounded')]: rounded },
 	)
+	const imageStyle = width ? { width, height: width } : undefined;
 
-	return <img src={src} className={imageClass} style={{ width, height: width }} />
+	return <img src={src} className={imageClass} style={imageStyle} />
 }
 
 Image.defaultProps = {

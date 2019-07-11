@@ -13,6 +13,3 @@ export const useBEM: UseBEM = (blockName) => [
 
 type UseProps = <P>(props: P, defaultProps: Partial<P>) => [(propName: keyof P) => boolean];
 export const useProps: UseProps = (props, defaultProps) => [(propName) => defaultProps[propName] === props[propName]];
-
-export const price = (price: number) => `${price}₽`;
-export const minutes = (minutes: number) => `${minutes}мин.`;

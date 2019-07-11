@@ -9,25 +9,31 @@ export type ButtonProps = {
 	disabled?: boolean;
 	icon?: IconProps;
 	autoWidth?: boolean;
+	lean?: boolean;
 }
 
 const [buttonBlock, buttonModifier, buttonElement] = useBEM('button');
 const [textElement] = buttonElement('text');
 
 export const Button: React.FC<ButtonProps> = (props) => {
-	const { disabled, text, background, icon, autoWidth } = props;
+	const { children, disabled, text, background, icon, autoWidth, lean } = props;
 
 	const [isDefaultProp] = useProps(props, Button.defaultProps!);
 	const buttonClass = classnames(
 		buttonBlock,
 		{ [buttonModifier({ background })]: !isDefaultProp('background') },
 		{ [buttonModifier('width-auto')]: autoWidth },
+		{ [buttonModifier('lean')]: lean },
 	);
 
 	return (
 		<button className={buttonClass} disabled={disabled}>
-			{icon && <Icon {...icon} />}
-			{text && <span className={textElement}>{text}</span>}
+			{children || (
+				<React.Fragment>
+					{icon && <Icon {...icon} />}
+					{text && <span className={textElement}>{text}</span>}
+				</React.Fragment>
+			)}
 		</button>
 	);
 }

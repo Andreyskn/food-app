@@ -4,6 +4,7 @@
 	width: 100%;
 	height: 40px;
 	padding: 0 10px;
+
 	cursor: pointer;
 
 	color: #ed5567;
@@ -19,6 +20,8 @@
 	align-items: center;
 	justify-content: center;
 
+	// TODO: --lean
+
 	> .icon:not(:only-child) {
 		margin-right: 5px;
 	}
@@ -33,7 +36,7 @@
 	&[class*='--background'] {
 		color: white;
 	}
-	
+
 	&--width-auto {
 		width: auto;
 	}

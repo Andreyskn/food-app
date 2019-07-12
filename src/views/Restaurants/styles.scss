@@ -6,7 +6,7 @@ $tile-offset: 20px;
 	flex-direction: column;
 
 	min-height: 100vh;
-	padding: 90px 0 50px;
+	padding: 100px 0 40px;
 
 	background: #f6f6f6;
 
@@ -30,16 +30,17 @@ $tile-offset: 20px;
 
 		align-items: center;
 
-		.tile-set {
-			flex: 0 0 auto;
-
-			width: 100%;
+		.button {
 			max-width: 500px;
-			height: $tile-height;
 
-			&+ .tile-set {
+			&+ .button {
 				margin-top: $tile-offset;
 			}
+		}
+
+		.tile-set {
+			width: 100%;
+			height: $tile-height;
 		}
 
 		.tile-set__item:first-child {
@@ -57,14 +58,16 @@ $tile-offset: 20px;
 
 		background-color: #fbfbfb;
 
-		justify-content: space-around;
+		justify-content: space-between;
+
+		> .caption {
+			.caption__title {
+				font-size: 14px;
+			}
+		}
 
 		.heading-wrapper {
 			justify-content: space-around;
-		}
-
-		.caption__title {
-			font-size: 14px;
 		}
 
 		.caption__subtitle {

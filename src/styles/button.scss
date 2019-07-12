@@ -20,7 +20,17 @@
 	align-items: center;
 	justify-content: center;
 
-	// TODO: --lean
+	&--lean {
+		height: auto;
+		padding: 0;
+
+		color: inherit;
+		background-color: transparent;
+
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+	}
 
 	> .icon:not(:only-child) {
 		margin-right: 5px;

@@ -1,5 +1,4 @@
 import React from 'react';
-// import classnames from 'classnames';
 import './styles.scss';
 
 import { restaurantsBlock, restaurantsElement } from './common';

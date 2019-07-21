@@ -1,6 +1,5 @@
 import React from 'react';
 import './styles.scss';
-
 import { restaurantsBlock, restaurantsElement } from './common';
 import { Button, Caption, Header } from 'components';
 import { RestaurantTile, RestaurantTileProps } from './RestaurantTile';

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classnames from 'classnames';
 import './styles';
 import { useBEM } from 'utils';
 import { Button } from 'components';
-// import { Image, ImageProps } from './Image';
+import { RouterContext } from 'router';
 
 export type HeaderProps = {
 	logo?: any;
@@ -14,6 +14,7 @@ const [headerBlock] = useBEM('header');
 
 export const Header: React.FC<HeaderProps> = (props) => {
 	const {  } = props;
+	const { goBack } = useContext(RouterContext);
 
 	// const [isDefaultProp] = useProps(props, Header.defaultProps!);
 	const buttonClass = classnames(
@@ -23,7 +24,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
 	return (
 		<div className={buttonClass}>
-			<Button text='Назад' background='none' icon={{ name: 'back' }} autoWidth />
+			<Button text='Назад' background='none' icon={{ name: 'back' }} autoWidth onClick={goBack} />
 		</div>
 	);
 }

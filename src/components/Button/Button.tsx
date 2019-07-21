@@ -1,7 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Icon, IconProps } from './Icon';
-import { useBEM, useProps } from '../utils';
+import './styles';
+import { useBEM, useProps } from 'utils';
+import { Icon, IconProps } from 'components';
 
 export type ButtonProps = {
 	text?: string;
@@ -9,6 +10,7 @@ export type ButtonProps = {
 	disabled?: boolean;
 	icon?: IconProps;
 	autoWidth?: boolean;
+	rounded?: boolean;
 
 	onClick?: (e: React.MouseEvent) => void;
 }
@@ -17,7 +19,7 @@ const [buttonBlock, buttonModifier, buttonElement] = useBEM('button');
 const [textElement] = buttonElement('text');
 
 export const Button: React.FC<ButtonProps> = (props) => {
-	const { children, disabled, text, background, icon, autoWidth, onClick } = props;
+	const { children, disabled, text, background, icon, autoWidth, onClick, rounded } = props;
 
 	const [isDefaultProp] = useProps(props, Button.defaultProps!);
 	const buttonClass = classnames(
@@ -25,6 +27,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
 		{ [buttonModifier({ background })]: !isDefaultProp('background') },
 		{ [buttonModifier('width-auto')]: autoWidth },
 		{ [buttonModifier('lean')]: children },
+		{ [buttonModifier('rounded')]: rounded },
 	);
 
 	return (

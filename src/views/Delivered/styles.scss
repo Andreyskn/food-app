@@ -1,0 +1,107 @@
+.delivered {
+	padding-top: 105px;
+
+	.caption-wrapper {
+		.icon {
+			width: auto;
+			height: 44px;
+
+			> svg {
+				height: 44px;
+			}
+		}
+	}
+
+	&--participant {
+		.tile-set__item:first-child {
+			display: flex;
+			flex-direction: column;
+
+			padding: 16px;
+
+			> .text {
+				margin-bottom: 15px;
+
+				opacity: .62;
+			}
+
+			> .image {
+				width: 60px;
+				height: 60px;
+				margin-bottom: 12px;
+			}
+
+			.caption__title {
+				font-family: 'Open Sans', sans-serif;
+				font-size: 14px;
+			}
+		}
+
+		.tile-set__item:last-child {
+			padding: 20px;
+
+			.caption__title {
+				font-size: 60px;
+
+				> b {
+					font-weight: 300;
+				}
+
+				> small {
+					font-size: 32px;
+				}
+			}
+		}
+	}
+}
+
+.bill {
+	width: 100%;
+	min-width: 270px;
+	padding: 20px 20px 10px;
+
+	> .caption {
+		margin-bottom: 17px;
+	}
+
+	&__item {
+		display: flex;
+
+		height: 30px;
+		margin-bottom: 20px;
+
+		align-items: center;
+
+		> .image {
+			width: 30px;
+			height: 30px;
+			margin-right: 10px;
+		}
+
+		> .text {
+			overflow: hidden;
+			flex: 1 1 auto;
+
+			width: 0;
+			padding-right: 5px;
+
+			text-align: left;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		> .caption {
+			margin: 0 10px 0 auto;
+
+			.caption__title {
+				font-size: 18px;
+			}
+		}
+
+		> .button {
+			width: 30px;
+			height: 30px;
+			padding: 0;
+		}
+	}
+}

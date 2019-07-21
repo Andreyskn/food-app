@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Image, Text, Caption } from '../../components';
+import { Button, Image, Text, Caption } from 'components';
 
-export class HomeView extends React.Component {
+export class Home extends React.Component {
 	render() {
 		return (
 			<div className='wrapper'>

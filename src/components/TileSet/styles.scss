@@ -5,6 +5,8 @@ $item: #{$root}__item;
 	display: flex;
 	overflow: hidden;
 
+	width: 100%;
+
 	border-radius: 15px;
 
 	&--direction-column {

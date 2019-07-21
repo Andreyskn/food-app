@@ -1,28 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-import { useBEM, useProps } from '../utils';
-
-export type TileSetProps = {
-	direction?: 'row' | 'column';
-}
-
-const [tileSetBlock, tileSetModifier, tileSetElement] = useBEM('tile-set');
-
-export const TileSet: React.FC<TileSetProps> = (props) => {
-	const { direction, children } = props;
-
-	const [isDefaultProp] = useProps(props, TileSet.defaultProps!);
-	const tileSetClass = classnames(
-		tileSetBlock,
-		{ [tileSetModifier({ direction })]: !isDefaultProp('direction') },
-	);
-
-	return <div className={tileSetClass}>{children}</div>;
-}
-
-TileSet.defaultProps = {
-	direction: 'row',
-}
+import './styles';
+import { useProps } from 'utils';
+import { tileSetElement } from './common';
 
 export type TileProps = {
 	background?: 'contrast' | 'transparent' | 'none';

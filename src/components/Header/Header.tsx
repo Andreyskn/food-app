@@ -1,7 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-import { useBEM } from '../utils';
-import { Button } from './Button';
+import './styles';
+import { useBEM } from 'utils';
+import { Button } from 'components';
 // import { Image, ImageProps } from './Image';
 
 export type HeaderProps = {

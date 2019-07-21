@@ -1,9 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
-import { useBEM, useProps } from '../utils';
+import './styles';
+import { useBEM, useProps } from 'utils';
 
 export type TextProps = {
-	color: 'default' | 'contrast';
+	color?: 'default' | 'contrast';
 }
 
 const [textBlock, textModifier] = useBEM('text');

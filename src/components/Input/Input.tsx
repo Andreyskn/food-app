@@ -1,6 +1,7 @@
 import React from 'react';
 // import classnames from 'classnames';
-import { useBEM } from '../utils';
+import './styles';
+import { useBEM } from 'utils';
 
 export type InputProps = {
 	placeholder?: string;

@@ -1,6 +1,5 @@
 @import './fonts.scss';
 @import './base.scss';
-@import './components.scss';
 
 .wrapper {
 	display: flex;
@@ -28,11 +27,21 @@
 	}
 }
 
-.heading-wrapper {
+.caption-wrapper {
 	display: flex;
 
 	width: 100%;
+	margin-bottom: 30px;
 
 	justify-content: space-between;
 	align-items: center;
+}
+
+.actions {
+	width: 100%;
+	margin-top: auto;
+
+	.button+ .button {
+		margin-top: 10px;
+	}
 }

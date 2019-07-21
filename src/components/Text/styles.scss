@@ -5,11 +5,11 @@
 	font-size: 12px;
 	line-height: 1.4;
 
-	&--color-contrast {
-		color: white;
-	}
-
 	> span {
 		color: #ed5567;
+	}
+
+	&--color-contrast {
+		color: white;
 	}
 }

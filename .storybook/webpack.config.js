@@ -13,7 +13,7 @@ module.exports = async ({ config, mode }) => {
 			include: path.resolve(__dirname, '../'),
 		},
 		{
-			test: /\.(ts|tsx)?$/,
+			test: /\.tsx?$/,
 			use: ['awesome-typescript-loader'],
 			include: path.resolve(__dirname, '../'),
 			exclude: [path.resolve(__dirname, '../node_modules')],

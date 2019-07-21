@@ -62,4 +62,8 @@
 	&--background-none {
 		background-color: transparent;
 	}
+
+	&--rounded {
+		border-radius: 50%;
+	}
 }

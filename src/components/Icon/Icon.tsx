@@ -1,14 +1,11 @@
 import React from 'react';
 import classnames from 'classnames';
-import { useBEM } from '../utils';
-
-const icons = {
-	back: <svg viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>,
-	plus: <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>,
-}
+import './styles';
+import { useBEM } from 'utils';
+import { Icons } from './SVGicons';
 
 export type IconProps = {
-	name: keyof typeof icons;
+	name: keyof typeof Icons;
 	rotate?: '45';
 }
 
@@ -22,5 +19,5 @@ export const Icon: React.FC<IconProps> = (props) => {
 		{ [iconModifier({ rotate })]: rotate },
 	)
 
-	return <i className={iconClass}>{icons[name]}</i>;
+	return <i className={iconClass}>{Icons[name]}</i>;
 }

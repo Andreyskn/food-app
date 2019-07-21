@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { restaurantsElement } from './common';
-import { TileSet, Tile, Image, ImageProps, Caption, Button } from '../../components';
+import { TileSet, Tile, Image, ImageProps, Caption, Button } from 'components';
 
 export type RestaurantTileProps = {
 	logo: {
@@ -27,7 +27,7 @@ export const RestaurantTile: React.FC<RestaurantTileProps> = (props) => {
 				<Tile grow>
 					<div className={tileElement}>
 						<Caption align='center'>{name}</Caption>
-						<div className='heading-wrapper'>
+						<div className='caption-wrapper'>
 							<Caption subtitle={{ text: 'Доставка' , uppercase: true, brighten: true }} color='accent' align='center'>
 								<b>{deliveryTime}</b><small>мин.</small>
 							</Caption>

@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.scss';
 
 import { restaurantsBlock, restaurantsElement } from './common';
-import { Button, Caption, Header } from '../../components';
+import { Button, Caption, Header } from 'components';
 import { RestaurantTile, RestaurantTileProps } from './RestaurantTile';
 
 const restaurants: RestaurantTileProps[] = [
@@ -18,7 +18,7 @@ export const Restaurants: React.FC = () => {
 	return (
 		<div className={restaurantsBlock}>
 			<Header />
-			<div className='heading-wrapper'>
+			<div className='caption-wrapper'>
 				<Caption weight='medium' size='large' subtitle={{ text: 'Выбери, где заказать' }}>Заведения</Caption>
 				<Button text='Добавить' background='accent' icon={{ name: 'plus' }} autoWidth />
 			</div>

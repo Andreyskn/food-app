@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.scss';
+import './styles/index';
 
-import { OrderPlaced } from './views';
+// @ts-ignore
+import { Home, Restaurants, OrderStarted, OrderPlaced, Waiting, Declined, Delivered } from './views';
 
 class App extends Component {
 	render() {
-		return <OrderPlaced />
+		return <Delivered />
 	}
 }
 

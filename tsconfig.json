@@ -23,6 +23,16 @@
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
 		"strictNullChecks": true,
+
+		"baseUrl": ".",
+		"paths": {
+			"utils": [
+				"src/utils"
+			],
+			"components": [
+				"src/components"
+			]
+		}
 	},
 	"include": [
 		"./src/**/*"

@@ -6,3 +6,6 @@ export * from './Icon';
 export * from './TileSet';
 export * from './Input';
 export * from './Header';
+export * from './Timer';
+export * from './Participants';
+export * from './ChosenPlace';

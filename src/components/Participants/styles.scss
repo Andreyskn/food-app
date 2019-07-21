@@ -1,0 +1,78 @@
+$root: '.participants';
+$gallery: '#{$root}__gallery';
+$slot: '#{$gallery}-slot';
+
+#{$root} {
+	width: 100%;
+	padding: 20px 20px 15px;
+
+	#{$gallery} {
+		display: flex;
+
+		margin-bottom: 5px;
+
+		align-items: center;
+
+		&--duet {
+			#{$slot}--middle {
+				margin: 0 -10px;
+			}
+		}
+	}
+
+	#{$slot} {
+		display: flex;
+
+		> .image {
+			width: 30px;
+			height: 30px;
+		}
+
+		&--left {
+			flex-direction: row-reverse;
+			flex: 1;
+
+			transform: translate(-10px, 5px);
+
+			flex-wrap: wrap;
+
+			> .image {
+				margin: -10px -10px 0 0;
+			}
+		}
+
+		&--middle {
+			flex: 0 0 auto;
+
+			padding: 0 10px;
+
+			justify-content: center;
+
+			> .image {
+				width: 50px;
+				height: 50px;
+			}
+
+			> .image:first-child:not(:only-child) {
+				transform: translateX(10px);
+			}
+
+			> .image:nth-child(2) {
+				transform: translateX(-10px);
+			}
+		}
+
+		&--right {
+			flex: 1;
+
+			transform: translate(10px, 5px);
+
+			justify-content: flex-start;
+			flex-wrap: wrap;
+
+			> .image {
+				margin: -10px 0 0 -10px;
+			}
+		}
+	}
+}

@@ -1,7 +1,6 @@
-// const webpack = require('webpack');
 const path = require('path');
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 
-// Developemnt Mode Plugins
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -16,13 +15,16 @@ module.exports = {
 	},
 
 	resolve: {
-		extensions: ['.ts', '.tsx', '.js'],
+		extensions: ['.ts', '.tsx', '.js', '.scss'],
+		plugins: [
+			new TsConfigPathsPlugin(),
+		]
 	},
 
 	module: {
 		rules: [
 			{
-				test: /\.(ts|tsx)?$/,
+				test: /\.tsx?$/,
 				use: ['awesome-typescript-loader'],
 				exclude: [path.resolve(__dirname, 'node_modules')],
 			},
@@ -45,8 +47,6 @@ module.exports = {
 	},
 
 	plugins: [
-		// new webpack.HotModuleReplacementPlugin(),
-		// new webpack.NamedModulesPlugin(),
 		new HTMLWebpackPlugin({ template: path.resolve(__dirname, './src/index.html') }),
 	],
 }

@@ -1,0 +1,21 @@
+.order-started {
+	padding-top: 105px;
+
+	.tile-set {
+		.caption-wrapper {
+			margin-bottom: 0;
+			padding: 12px 45px;
+
+			.caption__title {
+				small {
+					font-size: 12px;
+					font-weight: 400;
+				}
+			}
+
+			.caption__subtitle {
+				font-size: 10px;
+			}
+		}
+	}
+}

@@ -1,16 +1,12 @@
+@import '../mixins';
 $tile-height: 90px;
 $tile-offset: 20px;
 
 .restaurants {
-	display: flex;
-	flex-direction: column;
+	@include view;
 
-	min-height: 100vh;
-	padding: 100px 0 40px;
+	padding: 43px 0 40px;
 
-	background: #f6f6f6;
-
-	align-items: center;
 
 	> .caption-wrapper {
 		width: calc(100% - 90px);

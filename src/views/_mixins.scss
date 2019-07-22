@@ -1,0 +1,10 @@
+@mixin view {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+
+	height: 0;
+	padding: 43px 50px 45px;
+
+	align-items: center;
+}

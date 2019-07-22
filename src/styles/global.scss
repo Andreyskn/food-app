@@ -1,0 +1,31 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+
+	height: 100vh;
+
+	background: linear-gradient(-50deg, rgba(#de3b73, .9), rgba(#ed5567, .9));
+
+	&--background-white {
+		background: #f6f6f6;
+	}
+}
+
+.caption-wrapper {
+	display: flex;
+
+	width: 100%;
+	margin-bottom: 30px;
+
+	justify-content: space-between;
+	align-items: center;
+}
+
+.actions {
+	width: 100%;
+	margin-top: auto;
+
+	.button+ .button {
+		margin-top: 10px;
+	}
+}

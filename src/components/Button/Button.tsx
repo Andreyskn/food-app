@@ -26,7 +26,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
 		buttonBlock,
 		{ [buttonModifier({ background })]: !isDefaultProp('background') },
 		{ [buttonModifier('width-auto')]: autoWidth },
-		{ [buttonModifier('lean')]: children },
+		{ [buttonModifier('clean')]: children },
 		{ [buttonModifier('rounded')]: rounded },
 	);
 

@@ -8,12 +8,13 @@ import { RouterContext } from 'router';
 export type HeaderProps = {
 	logo?: any;
 	background?: 'accent' | React.CSSProperties['backgroundColor'];
+	mode?: 'user' | 'back';
 }
 
 const [headerBlock] = useBEM('header');
 
 export const Header: React.FC<HeaderProps> = (props) => {
-	const {  } = props;
+	const { mode } = props;
 	const { goBack } = useContext(RouterContext);
 
 	// const [isDefaultProp] = useProps(props, Header.defaultProps!);
@@ -24,11 +25,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
 	return (
 		<div className={buttonClass}>
-			<Button text='Назад' background='none' icon={{ name: 'back' }} autoWidth onClick={goBack} />
+			{mode === 'back' && <Button text='Назад' background='none' icon={{ name: 'back' }} autoWidth onClick={goBack} /> || 'User'}
 		</div>
 	);
 }
 
 Header.defaultProps = {
-	
+	mode: 'user',
 }

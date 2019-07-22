@@ -4,6 +4,7 @@
 	],
 	"sort-order": [
 		[
+			"$include",
 			"position",
 			"z-index",
 			"top",

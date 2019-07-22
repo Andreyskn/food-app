@@ -1,28 +1,33 @@
 import React, { useState } from 'react';
-import { routes, initialRoute } from './routes';
+import { routes, initialRoute, RouteName } from './routes';
 
 type RouterContextType = {
 	goBack: () => void;
-	navigateTo: (route: keyof typeof routes) => () => void;
+	navigateTo: (route: RouteName) => () => void;
 }
+
 export const RouterContext = React.createContext<RouterContextType>({ goBack: () => {}, navigateTo: () => () => {} });
 
 export const Router: React.FC = () => {
-	const [history, setHistory] = useState<(keyof typeof routes)[]>([]);
+	const [history, setHistory] = useState<RouteName[]>([]);
 	const [currentRoute, setRoute] = useState(initialRoute);
 
 	const goBack = () => {
-		setRoute(history[history.length - 1]);
+		const newHistory = [...history];
+		const [previousRoute] = newHistory.splice(-1, 1);
+
+		setRoute(previousRoute);
+		setHistory(newHistory);
 	}
 
-	const navigateTo = (route: keyof typeof routes) => () => {
-		setHistory([...history, currentRoute]);
+	const navigateTo = (route: RouteName) => () => {
 		setRoute(route);
+		setHistory([...history, currentRoute]);
 	}
 
 	return (
 		<RouterContext.Provider value={{ goBack, navigateTo }}>
-			{routes[currentRoute].view}
+			{routes[currentRoute]}
 		</RouterContext.Provider>
 	)
 }

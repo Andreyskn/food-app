@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import './styles';
+import './caption.scss';
 import { useBEM, useProps } from 'utils';
 
 export type CaptionProps = {

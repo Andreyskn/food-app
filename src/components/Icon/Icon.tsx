@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-import './styles';
+import './icon.scss';
 import { useBEM } from 'utils';
-import { Icons } from './SVGicons';
+import { Icons } from './SVGIcons';
 
 export type IconProps = {
 	name: keyof typeof Icons;

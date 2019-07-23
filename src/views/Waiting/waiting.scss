@@ -1,0 +1,9 @@
+@import '../mixins';
+
+.waiting {
+	@include view;
+
+	.chosen-place {
+		padding-bottom: 20px;
+	}
+}

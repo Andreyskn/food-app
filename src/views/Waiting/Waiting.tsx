@@ -1,15 +1,16 @@
-import React from 'react';
-import classnames from 'classnames';
-import './styles';
+import React, { useContext } from 'react';
+import './waiting.scss';
 import { useBEM } from 'utils';
-import { ChosenPlace, Button, Caption, TileSet, Tile, Timer, Header, Icon } from 'components';
+import { ChosenPlace, Button, Caption, TileSet, Tile, Timer, Icon } from 'components';
+import { RouterContext } from 'router';
 
-const [viewBlock] = useBEM('in-progress');
+const [viewBlock] = useBEM('waiting');
 
 export const Waiting: React.FC = () => {
+	const { navigateTo } = useContext(RouterContext);
+
 	return (
-		<div className={classnames(viewBlock, 'wrapper')}>
-			<Header />
+		<div className={viewBlock}>
 			<div className='caption-wrapper'>
 				<Caption weight='medium' size='large' color='contrast' subtitle={{ text: 'Ждём доставки...' }}>
 					Заказ в процессе
@@ -21,7 +22,7 @@ export const Waiting: React.FC = () => {
 					<ChosenPlace />
 				</Tile>
 				<Tile background='transparent'>
-					<div className='in-progress-tile'>
+					<div className='waiting-tile'>
 						<Icon name='truck-coming' />
 						<Caption subtitle={{ text: 'примерное время доставки' }} weight='light' color='contrast' align='center'>
 							<Timer />
@@ -31,7 +32,7 @@ export const Waiting: React.FC = () => {
 			</TileSet>
 
 			<div className='actions'>
-				<Button text='Доставлено!' />
+				<Button text='Доставлено!' onClick={navigateTo('Delivered')} />
 			</div>
 		</div>
 	)

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './styles.scss';
+import './timer.scss';
 import { useBEM, msToTime } from 'utils';
 
 const deadline = Date.now() + 1.45 * 60 * 60 * 1000;
@@ -11,9 +11,11 @@ export const Timer: React.FC = () => {
 	const { hours, minutes, seconds } = msToTime(deadline - Date.now());
 
 	useEffect(() => {
+		let timerId: number;
 		if (hours > 0 || minutes > 0 || seconds > 0) {
-			setTimeout(() => forceUpdate({}), 1000);
+			timerId = window.setTimeout(() => forceUpdate({}), 1000);
 		}
+		return () => clearTimeout(timerId);
 	});
 
 	return (

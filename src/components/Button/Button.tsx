@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import './styles';
+import './button.scss';
 import { useBEM, useProps } from 'utils';
 import { Icon, IconProps } from 'components';
 

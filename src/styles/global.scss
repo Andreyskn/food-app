@@ -29,3 +29,38 @@
 		margin-top: 10px;
 	}
 }
+
+.waiting-tile {
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	min-height: 185px;
+	padding: 30px 20px 15px;
+
+	justify-content: center;
+
+	> .icon {
+		width: auto;
+		height: 60px;
+		margin-bottom: 22px;
+
+		> svg {
+			position: relative;
+			left: 50%;
+
+			height: 60px;
+
+			transform: translateX(-62%);
+		}
+	}
+
+	.caption__title {
+		font-size: 42px;
+		line-height: 1;
+	}
+
+	.caption__subtitle {
+		font-size: 10px;
+	}
+}

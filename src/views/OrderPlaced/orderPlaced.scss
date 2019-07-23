@@ -1,5 +1,7 @@
+@import '../mixins';
+
 .order-placed {
-	padding-top: 105px;
+	@include view;
 
 	.timer {
 		font-size: 56px;

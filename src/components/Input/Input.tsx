@@ -1,6 +1,5 @@
 import React from 'react';
-// import classnames from 'classnames';
-import './styles';
+import './input.scss';
 import { useBEM } from 'utils';
 
 export type InputProps = {

@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import './styles';
 import { useProps } from 'utils';
 import { tileSetElement } from './common';
 

@@ -1,15 +1,16 @@
-import React from 'react';
-import classnames from 'classnames';
-import './styles';
-import { useBEM } from 'utils';
-import { ChosenPlace, Button, Caption, TileSet, Tile, Timer, Participants, Header } from 'components';
+import React, { useContext } from 'react';
+import './orderStarted.scss';
+import { useBEM, price, minutes } from 'utils';
+import { ChosenPlace, Button, Caption, TileSet, Tile, Timer, Participants } from 'components';
+import { RouterContext } from 'router';
 
 const [viewBlock] = useBEM('order-started');
 
 export const OrderStarted: React.FC = () => {
+	const { navigateTo } = useContext(RouterContext);
+
 	return (
-		<div className={classnames(viewBlock, 'wrapper')}>
-			<Header />
+		<div className={viewBlock}>
 			<div className='caption-wrapper'>
 				<Caption weight='medium' size='large' color='contrast' subtitle={{ text: 'Звучит заманчиво?' }}>
 					Новый заказ!
@@ -26,10 +27,10 @@ export const OrderStarted: React.FC = () => {
 				<Tile background='contrast'>
 					<div className='caption-wrapper'>
 						<Caption subtitle={{ text: 'Доставка' , uppercase: true }} weight='light' size='large' color='accent' align='center'>
-							<b>{70}</b><small>мин.</small>
+							{minutes(70)}
 						</Caption>
 						<Caption subtitle={{ text: 'Средний чек' , uppercase: true }} weight='light' size='large' color='accent' align='center'>
-							<b>{180}</b><small>₽</small>
+							{price(180)}
 						</Caption>
 					</div>
 				</Tile>
@@ -40,7 +41,7 @@ export const OrderStarted: React.FC = () => {
 
 			<div className='actions'>
 				<Button text='Я тоже хочу есть!' />
-				<Button background='transparent' text='Не сегодня...' />
+				<Button background='transparent' text='Не сегодня...' onClick={navigateTo('Declined')} />
 			</div>
 		</div>
 	)

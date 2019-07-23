@@ -4,7 +4,6 @@ import { useBEM, useProps } from 'utils';
 import { Header, HeaderProps } from 'components';
 
 export type RouteProps = {
-	cleanWrapper?: boolean;
 	noHeader?: boolean;
 	noWrapper?: boolean;
 	headerProps?: HeaderProps;
@@ -14,12 +13,11 @@ export type RouteProps = {
 const [wrapperBlock, wrapperModifier] = useBEM('wrapper');
 
 const Route: React.FC<RouteProps> = (props) => {
-	const { children, cleanWrapper, headerProps, noHeader, noWrapper, background } = props;
+	const { children, headerProps, noHeader, noWrapper, background } = props;
 
 	const [isDefaultProp] = useProps(props, Route.defaultProps!)
 	const wrapperClass = classnames(
 		wrapperBlock,
-		{ [wrapperModifier('clean')]: cleanWrapper },
 		{ [wrapperModifier({ background })]: !isDefaultProp('background') },
 	)
 

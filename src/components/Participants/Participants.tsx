@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
-import './styles';
+import './participants.scss';
 import { Image, Caption, CaptionProps } from 'components';
 import { useBEM } from 'utils';
 

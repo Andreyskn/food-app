@@ -1,6 +1,6 @@
 import React from 'react';
-import './styles.scss';
-import { restaurantsBlock, restaurantsElement } from './common';
+import './listOfPlaces.scss';
+import { useBEM } from 'utils';
 import { Button, Caption } from 'components';
 import { RestaurantTile, RestaurantTileProps } from './RestaurantTile';
 
@@ -11,11 +11,12 @@ const restaurants: RestaurantTileProps[] = [
 	{ logo: { src: require('../../assets/images/Logo-4.png'), background: '#c21f22' }, name: 'Хан Буз', deliveryTime: 70, averagePrice: 180 },
 ];
 
-const [tileListElement] = restaurantsElement('tile-list');
+const [viewBlock, , viewElement] = useBEM('list-of-places');
+const [tileListElement] = viewElement('tile-list');
 
-export const Restaurants: React.FC = () => {
+export const ListOfPlaces: React.FC = () => {
 	return (
-		<div className={restaurantsBlock}>
+		<div className={viewBlock}>
 			<div className='caption-wrapper'>
 				<Caption weight='medium' size='large' subtitle={{ text: 'Выбери, где заказать' }}>Заведения</Caption>
 				<Button text='Добавить' background='accent' icon={{ name: 'plus' }} autoWidth />

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import './styles';
+import './home.scss';
 import { useBEM } from 'utils';
 import { Button, Image, Text, Caption } from 'components';
 import { RouterContext } from 'router';
@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
 			</Caption>
 
 			<Text color='contrast'>К сожалению, активных заказов сейчас нет, но в твоих силах это изменить:</Text>
-			<Button text='Новый заказ' onClick={navigateTo('Restaurants')} />
+			<Button text='Новый заказ' onClick={navigateTo('ListOfPlaces')} />
 		</div>
 	)
 }

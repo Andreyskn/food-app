@@ -1,5 +1,7 @@
+@import '../mixins';
+
 .delivered {
-	padding-top: 105px;
+	@include view;
 
 	.caption-wrapper {
 		.icon {

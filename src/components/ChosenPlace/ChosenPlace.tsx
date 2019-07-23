@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles';
+import './chosenPlace.scss';
 import { useBEM } from 'utils';
 import { Image, ImageProps, Caption, CaptionProps } from 'components';
 

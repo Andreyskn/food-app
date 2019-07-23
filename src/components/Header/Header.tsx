@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
-import './styles';
+import './header.scss';
 import { useBEM } from 'utils';
 import { Button } from 'components';
 import { RouterContext } from 'router';

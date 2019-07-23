@@ -1,5 +1,7 @@
+@import '../mixins';
+
 .order-started {
-	padding-top: 105px;
+	@include view;
 
 	.tile-set {
 		.caption-wrapper {

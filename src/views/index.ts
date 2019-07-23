@@ -1,5 +1,5 @@
 export * from './Home';
-export * from './Restaurants';
+export * from './ListOfPlaces';
 export * from './OrderPlaced';
 export * from './OrderStarted';
 export * from './Waiting';

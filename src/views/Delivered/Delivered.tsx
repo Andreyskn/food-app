@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-import './styles';
+import './delivered.scss';
 import { useBEM, price } from 'utils';
-import { Button, Caption, TileSet, Tile, Header, Icon, Text, Image } from 'components';
+import { Button, Caption, TileSet, Tile, Icon, Text, Image } from 'components';
 import { Bill } from './Bill';
 
 const user = {
@@ -11,7 +11,7 @@ const user = {
 	lastName: 'Скипин',
 	image: require('../../../.storybook/utils/avatar.png'),
 	bill: 320,
-	isInitiator: false,
+	isInitiator: true,
 	hasJoied: false,
 }
 
@@ -26,13 +26,12 @@ const [viewBlock, viewModifier] = useBEM('delivered');
 
 export const Delivered: React.FC = () => {
 	const viewClassName = classnames(
-		viewBlock, 'wrapper',
+		viewBlock,
 		{ [viewModifier('participant')]: !user.isInitiator },
 	)
 
 	return (
 		<div className={viewClassName}>
-			<Header />
 			<div className='caption-wrapper'>
 				<Caption weight='medium' size='large' color='contrast' subtitle={{ text: 'Еда уже ждёт тебя в столовой' }}>
 					Доставлено!

@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import './styles';
+import './tileSet.scss';
 import { useProps } from 'utils';
 import { tileSetBlock, tileSetModifier } from './common';
 

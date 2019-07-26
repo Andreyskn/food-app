@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import './tileSet.scss';
-import { useProps } from 'utils';
+import { useProps } from 'alias/utils';
 import { tileSetBlock, tileSetModifier } from './common';
 
 export type TileSetProps = {

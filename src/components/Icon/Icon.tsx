@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import './icon.scss';
-import { useBEM } from 'utils';
+import { useBEM } from 'alias/utils';
 import { Icons } from './SVGIcons';
 
 export type IconProps = {

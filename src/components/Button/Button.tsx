@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 import './button.scss';
-import { useBEM, useProps } from 'utils';
-import { Icon, IconProps } from 'components';
+import { useBEM, useProps } from 'alias/utils';
+import { Icon, IconProps } from 'alias/components';
 
 export type ButtonProps = {
 	text?: string;

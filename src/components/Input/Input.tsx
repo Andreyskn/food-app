@@ -1,6 +1,6 @@
 import React from 'react';
 import './input.scss';
-import { useBEM } from 'utils';
+import { useBEM } from 'alias/utils';
 
 export type InputProps = {
 	placeholder?: string;

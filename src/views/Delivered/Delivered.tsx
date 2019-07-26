@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 import './delivered.scss';
-import { useBEM, price } from 'utils';
-import { Button, Caption, TileSet, Tile, Icon, Text, Image } from 'components';
+import { useBEM, price } from 'alias/utils';
+import { Button, Caption, TileSet, Tile, Icon, Text, Image } from 'alias/components';
 import { Bill } from './Bill';
 
 const user = {

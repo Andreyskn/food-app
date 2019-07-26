@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { useProps } from 'utils';
+import { useProps } from 'alias/utils';
 import { tileSetElement } from './common';
 
 export type TileProps = {

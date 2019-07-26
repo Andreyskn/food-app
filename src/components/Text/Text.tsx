@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import './text.scss';
-import { useBEM, useProps } from 'utils';
+import { useBEM, useProps } from 'alias/utils';
 
 export type TextProps = {
 	color?: 'default' | 'contrast';

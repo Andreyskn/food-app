@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
 import './header.scss';
-import { useBEM } from 'utils';
-import { Button } from 'components';
-import { RouterContext } from 'router';
+import { useBEM } from 'alias/utils';
+import { Button } from 'alias/components';
+import { AppContext } from 'alias/app';
 
 export type HeaderProps = {
 	logo?: any;
@@ -15,7 +15,7 @@ const [headerBlock] = useBEM('header');
 
 export const Header: React.FC<HeaderProps> = (props) => {
 	const { mode } = props;
-	const { goBack } = useContext(RouterContext);
+	const { goBack } = useContext(AppContext);
 
 	// const [isDefaultProp] = useProps(props, Header.defaultProps!);
 	const buttonClass = classnames(

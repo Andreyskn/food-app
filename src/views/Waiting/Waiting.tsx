@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import './waiting.scss';
-import { useBEM } from 'utils';
-import { ChosenPlace, Button, Caption, TileSet, Tile, Timer, Icon } from 'components';
-import { RouterContext } from 'router';
+import { useBEM } from 'alias/utils';
+import { ChosenPlace, Button, Caption, TileSet, Tile, Timer, Icon } from 'alias/components';
+import { AppContext } from 'alias/app';
 
 const [viewBlock] = useBEM('waiting');
 
 export const Waiting: React.FC = () => {
-	const { navigateTo } = useContext(RouterContext);
+	const { navigateTo, user } = useContext(AppContext);
 
 	return (
 		<div className={viewBlock}>
@@ -25,15 +25,17 @@ export const Waiting: React.FC = () => {
 					<div className='waiting-tile'>
 						<Icon name='truck-coming' />
 						<Caption subtitle={{ text: 'примерное время доставки' }} weight='light' color='contrast' align='center'>
-							<Timer />
+							<Timer timeUntil='delivery' />
 						</Caption>
 					</div>
 				</Tile>
 			</TileSet>
 
-			<div className='actions'>
-				<Button text='Доставлено!' onClick={navigateTo('Delivered')} />
-			</div>
+			{user.isInitiator && (
+				<div className='actions'>
+					<Button text='Доставлено!' onClick={() => navigateTo('Delivered')} />
+				</div>
+			)}
 		</div>
 	)
 }

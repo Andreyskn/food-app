@@ -1,52 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import classnames from 'classnames';
 import './participants.scss';
-import { Image, Caption, CaptionProps } from 'components';
-import { useBEM } from 'utils';
+import { Image, ImageProps, Caption, CaptionProps } from 'alias/components';
+import { useBEM } from 'alias/utils';
+import { AppContext } from 'alias/app';
 
-const user = {
-	id: 0,
-	firstName: 'Андрей',
-	lastName: 'Скипин',
-	image: require('../../../.storybook/utils/avatar.png'),
-	isInitiator: false,
-	hasJoined: false,
-}
-
-const participants = [
-	{ id: 0, firstName: 'Андрей', lastName: 'Скипин', image: require('../../../.storybook/utils/avatar.png') },
-	{ id: 1, firstName: 'Андрей', lastName: 'Скипин', image: require('../../../.storybook/utils/avatar.png'), isInitiator: true },
-	{ id: 2, firstName: 'Андрей', lastName: 'Скипин', image: require('../../../.storybook/utils/avatar.png') },
-	{ id: 3, firstName: 'Андрей', lastName: 'Скипин', image: require('../../../.storybook/utils/avatar.png') },
-	{ id: 4, firstName: 'Андрей', lastName: 'Скипин', image: require('../../../.storybook/utils/avatar.png') },
-];
+type GallerySlots = 'left' | 'middle' | 'right';
 
 const [participantsBlock, , participantsElement] = useBEM('participants');
 const [galleryElement, galleryModifier] = participantsElement('gallery');
 const [gallerySlotElement, gallerySlotModifier] = participantsElement('gallery-slot');
 
-let initiator = { firstName: '', lastName: '' }; // TODO: find better way to store initiator data
-
-type GallerySlots = 'left' | 'middle' | 'right';
+const makeImage = (src: ImageProps['src'], key: React.Key) => <Image rounded key={key} src={src} />
 
 export const Participants: React.FC = () => {
+	const { user, activeOrder } = useContext(AppContext);
+	const { participants, initiator } = activeOrder!;
+
+
 	const gallery: { [key in GallerySlots]: JSX.Element[] } = { left: [], middle: [], right: [] };
 
-	participants.forEach((p, i) => {
-		const image = <Image rounded key={i} src={p.image} />;
+	if (user.isInitiator) gallery.middle.push(makeImage(user.image, 0));
+	else {
+		gallery.middle.unshift(makeImage(initiator!.image, 0));
+		user.hasJoined && gallery.middle.push(makeImage(user.image, 1));
+	}
 
-		if (user.hasJoined && p.id === user.id) {
-			return gallery.middle.push(image);
-		}
-		if (p.isInitiator) {
-			initiator.firstName = p.firstName;
-			initiator.lastName = p.lastName;
-			return gallery.middle.unshift(image);
-		}
-		if (gallery.right.length > gallery.left.length) {
-			return gallery.left.push(image);
-		}
-		return gallery.right.push(image);
+	participants.forEach((p, i) => {
+		const image = makeImage(p.image, i);
+		gallery.right.length > gallery.left.length ? gallery.left.push(image) : gallery.right.push(image);
 	});
 
 	const getGallerySlotClass = (slot: GallerySlots) => classnames(gallerySlotElement, gallerySlotModifier(slot));
@@ -56,9 +38,9 @@ export const Participants: React.FC = () => {
 		{ [galleryModifier('duet')]: user.hasJoined },
 	)
 
-	const title = user.isInitiator ? 'Ты' : <Fragment>{initiator.firstName} <em>{initiator.lastName}</em></Fragment>;
+	const title = user.isInitiator ? 'Ты' : <Fragment>{initiator!.firstName} <em>{initiator!.lastName}</em></Fragment>;
 	const subtitle = {
-		text: `+${participants.length - (user.hasJoined ? 2 : 1)} голодающих` + (user.hasJoined ? ' и ты' : ''),
+		text: `+${participants.length} голодающих ${user.hasJoined ? 'и ты' : ''}`,
 	}
 
 	const captionProps: CaptionProps = {

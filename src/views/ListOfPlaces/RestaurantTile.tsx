@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { TileSet, Tile, Image, ImageProps, Caption, Button } from 'components';
-import { price, minutes } from 'utils';
-import { RouterContext } from 'router';
+import { TileSet, Tile, Image, ImageProps, Caption, Button } from 'alias/components';
+import { price, minutes } from 'alias/utils';
+import { AppContext } from 'alias/app';
 
 export type RestaurantTileProps = {
 	logo: {
@@ -17,10 +17,10 @@ export const RestaurantTile: React.FC<RestaurantTileProps> = (props) => {
 	const { logo: { src, background }, name, deliveryTime, averagePrice } = props;
 
 	// TODO: remove later
-	const { navigateTo } = useContext(RouterContext);
+	const { navigateTo } = useContext(AppContext);
 
 	return (
-		<Button onClick={navigateTo('OrderPlaced')}>
+		<Button onClick={() => navigateTo('OrderPlaced')}>
 			<TileSet>
 				<Tile background='contrast' customBackground={background}>
 					<Image src={src} />

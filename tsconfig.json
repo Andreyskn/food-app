@@ -26,17 +26,23 @@
 
 		"baseUrl": ".",
 		"paths": {
-			"utils": [
+			"alias/utils": [
 				"src/utils"
 			],
-			"components": [
+			"alias/components": [
 				"src/components"
 			],
-			"views": [
+			"alias/views": [
 				"src/views"
 			],
-			"router": [
+			"alias/router": [
 				"src/router"
+			],
+			"alias/store": [
+				"src/store"
+			],
+			"alias/app": [
+				"src/"
 			]
 		}
 	},

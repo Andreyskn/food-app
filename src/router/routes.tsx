@@ -1,5 +1,5 @@
 import { makeRoute } from './Route';
-import { Home, ListOfPlaces, OrderStarted, OrderPlaced, Waiting, Declined, Delivered } from 'views';
+import { Home, ListOfPlaces, OrderStarted, OrderPlaced, Waiting, Declined, Delivered } from 'alias/views';
 
 export type RouteName = keyof typeof routes;
 

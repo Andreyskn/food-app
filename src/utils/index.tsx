@@ -36,3 +36,5 @@ export const msToTime = (delta: number) => {
 
 	return { hours, minutes, seconds };
 }
+
+export const noop = () => {};

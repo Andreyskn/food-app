@@ -1,28 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './chosenPlace.scss';
-import { useBEM } from 'utils';
-import { Image, ImageProps, Caption, CaptionProps } from 'components';
+import { useBEM } from 'alias/utils';
+import { Image, ImageProps, Caption, CaptionProps } from 'alias/components';
+import { AppContext } from 'alias/app';
 
 const [chosenBlock] = useBEM('chosen-place');
 
 export const ChosenPlace: React.FC = () => {
+	const { activeOrder } = useContext(AppContext);
+	const { restaurant } = activeOrder!;
 
 	const imageProps: ImageProps = {
 		border: 'accent',
 		rounded: true,
-		src: require('../../assets/images/Logo-1.png'),
+		src: restaurant.image,
 	}
 
 	const captionProps: CaptionProps = {
-		subtitle: { text: '112 заказов' },
-
+		subtitle: restaurant.totalOrders ? { text: `${restaurant.totalOrders} заказов` } : undefined,
 	}
 
 	return (
 		<div className={chosenBlock}>
 			<Image {...imageProps} />
 			<Caption {...captionProps}>
-				Гриль зона "Гарик"
+				{restaurant.name}
 			</Caption>
 		</div>
 	);

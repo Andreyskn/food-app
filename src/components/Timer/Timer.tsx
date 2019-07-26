@@ -1,13 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './timer.scss';
-import { useBEM, msToTime } from 'utils';
-
-const deadline = Date.now() + 1.45 * 60 * 60 * 1000;
+import { useBEM, msToTime } from 'alias/utils';
+import { AppContext } from 'alias/app';
 
 const [timerBlock] = useBEM('timer');
 
-export const Timer: React.FC = () => {
+export type TimerProps = {
+	timeUntil: 'orderEnd' | 'delivery';
+}
+
+export const Timer: React.FC<TimerProps> = (props) => {
+	const { timeUntil } = props;
 	const [, forceUpdate] = useState();
+	const { activeOrder } = useContext(AppContext);
+	const { orderEndTime, deliveryEndTime } = activeOrder!;
+
+	const deadline = timeUntil === 'orderEnd' ? orderEndTime : deliveryEndTime;
+
+	if (!deadline) return null;
+
 	const { hours, minutes, seconds } = msToTime(deadline - Date.now());
 
 	useEffect(() => {

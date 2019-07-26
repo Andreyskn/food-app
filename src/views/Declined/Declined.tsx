@@ -1,7 +1,7 @@
 import React from 'react';
 import './declined.scss';
-import { useBEM } from 'utils';
-import { ChosenPlace, Caption, TileSet, Tile, Icon, Text } from 'components';
+import { useBEM } from 'alias/utils';
+import { ChosenPlace, Caption, TileSet, Tile, Icon, Text } from 'alias/components';
 
 const [viewBlock] = useBEM('declined');
 

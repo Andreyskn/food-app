@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
-import { useBEM, useProps } from 'utils';
-import { Header, HeaderProps } from 'components';
+import { useBEM, useProps } from 'alias/utils';
+import { Header, HeaderProps } from 'alias/components';
 
 export type RouteProps = {
 	noHeader?: boolean;

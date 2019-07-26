@@ -1,7 +1,7 @@
 import React from 'react';
 import './listOfPlaces.scss';
-import { useBEM } from 'utils';
-import { Button, Caption } from 'components';
+import { useBEM } from 'alias/utils';
+import { Caption } from 'alias/components';
 import { RestaurantTile, RestaurantTileProps } from './RestaurantTile';
 
 const restaurants: RestaurantTileProps[] = [
@@ -19,7 +19,7 @@ export const ListOfPlaces: React.FC = () => {
 		<div className={viewBlock}>
 			<div className='caption-wrapper'>
 				<Caption weight='medium' size='large' subtitle={{ text: 'Выбери, где заказать' }}>Заведения</Caption>
-				<Button text='Добавить' background='accent' icon={{ name: 'plus' }} autoWidth />
+				{/* <Button text='Добавить' background='accent' icon={{ name: 'plus' }} autoWidth /> */}
 			</div>
 			<div className={tileListElement}>
 				{restaurants.map((props, i) => <RestaurantTile key={i} {...props} />)}

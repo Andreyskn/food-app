@@ -1,6 +1,6 @@
 import React from 'react';
-import { useBEM, price } from 'utils';
-import { Button, Caption, Text, Image } from 'components';
+import { useBEM, price } from 'alias/utils';
+import { Button, Caption, Text, Image } from 'alias/components';
 
 const participants = [
 	{ id: 0, firstName: 'Андрей', lastName: 'Скипин', image: require('../../../.storybook/utils/avatar.png'), bill: 150 },

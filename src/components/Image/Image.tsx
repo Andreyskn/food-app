@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import './image.scss';
-import { useBEM, useProps } from 'utils';
+import { useBEM, useProps } from 'alias/utils';
 
 export type ImageProps = {
 	src: string;

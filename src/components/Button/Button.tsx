@@ -2,13 +2,14 @@ import React from 'react';
 import classnames from 'classnames';
 import './button.scss';
 import { useBEM, useProps } from 'alias/utils';
-import { Icon, IconProps } from 'alias/components';
+import { Icon, IconProps, Image, ImageProps } from 'alias/components';
 
 export type ButtonProps = {
 	text?: string;
-	background?: 'contrast' | 'accent' | 'transparent' | 'none';
+	background?: 'contrast' | 'accent' | 'glassy' | 'none';
 	disabled?: boolean;
 	icon?: IconProps;
+	image?: ImageProps['src'];
 	autoWidth?: boolean;
 	rounded?: boolean;
 
@@ -19,14 +20,17 @@ const [buttonBlock, buttonModifier, buttonElement] = useBEM('button');
 const [textElement] = buttonElement('text');
 
 export const Button: React.FC<ButtonProps> = (props) => {
-	const { children, disabled, text, background, icon, autoWidth, onClick, rounded } = props;
+	const {
+		children, disabled, text, background,
+		icon, autoWidth, onClick, rounded, image,
+	} = props;
 
-	const [isDefaultProp] = useProps(props, Button.defaultProps!);
+	const { isDefaultProp } = useProps(props, Button.defaultProps!);
 	const buttonClass = classnames(
 		buttonBlock,
 		{ [buttonModifier({ background })]: !isDefaultProp('background') },
 		{ [buttonModifier('width-auto')]: autoWidth },
-		{ [buttonModifier('clean')]: children },
+		{ [buttonModifier('custom')]: children },
 		{ [buttonModifier('rounded')]: rounded },
 	);
 
@@ -35,6 +39,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
 			{children || (
 				<React.Fragment>
 					{icon && <Icon {...icon} />}
+					{image && <Image src={image} rounded border='contrast' />}
 					{text && <span className={textElement}>{text}</span>}
 				</React.Fragment>
 			)}

@@ -52,7 +52,7 @@ export const Delivered: React.FC = () => {
 						<Image src={initiator.image} rounded />
 						<Caption>{initiator.firstName} <em>{initiator.lastName}</em></Caption>
 					</Tile>
-					<Tile background='transparent'>
+					<Tile background='glassy'>
 						<Caption align='center' color='contrast' weight='light'>{price(user.bill)}</Caption>
 					</Tile>
 				</TileSet>

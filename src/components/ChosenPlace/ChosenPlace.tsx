@@ -13,7 +13,7 @@ export const ChosenPlace: React.FC = () => {
 	const imageProps: ImageProps = {
 		border: 'accent',
 		rounded: true,
-		src: restaurant.image,
+		src: restaurant.logo,
 	}
 
 	const captionProps: CaptionProps = {

@@ -18,7 +18,7 @@ export const Declined: React.FC = () => {
 				<Tile background='contrast'>
 					<ChosenPlace />
 				</Tile>
-				<Tile background='transparent'>
+				<Tile background='glassy'>
 					<div className='waiting-tile'>
 						<Icon name='truck-declined' />
 						<Text color='contrast'>

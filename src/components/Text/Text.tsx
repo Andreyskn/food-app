@@ -12,7 +12,7 @@ const [textBlock, textModifier] = useBEM('text');
 export const Text: React.FC<TextProps> = (props) => {
 	const { children, color } = props;
 
-	const [isDefaultProp] = useProps(props, Text.defaultProps!);
+	const { isDefaultProp } = useProps(props, Text.defaultProps!);
 	const textClass = classnames(
 		textBlock,
 		{ [textModifier({ color })]: !isDefaultProp('color') },

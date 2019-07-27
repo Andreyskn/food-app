@@ -22,7 +22,7 @@ const [subtitleElement, subtitleModifier] = captionElement('subtitle');
 export const Caption: React.FC<CaptionProps> = (props) => {
 	const { children, subtitle, size, color, align, weight } = props;
 
-	const [isDefaultProp] = useProps(props, Caption.defaultProps!);
+	const { isDefaultProp } = useProps(props, Caption.defaultProps!);
 	const titleClass = classnames(
 		captionBlock,
 		{ [captionModifier({ color })]: !isDefaultProp('color') },

@@ -18,7 +18,7 @@ storiesOf('Components', module).add('TileSet', () => {
 	const tile1props: TileProps = {
 		background: radios<TileProps['background']>(
 			'Item 1 Background',
-			{ None: 'none', Contrast: 'contrast', Transparent: 'transparent' },
+			{ None: 'none', Contrast: 'contrast', Glassy: 'glassy' },
 			'contrast',
 			'Items',
 		),
@@ -33,7 +33,7 @@ storiesOf('Components', module).add('TileSet', () => {
 	const tile2props: TileProps = {
 		background: radios<TileProps['background']>(
 			'Item 2 Background',
-			{ None: 'none', Contrast: 'contrast', Transparent: 'transparent' },
+			{ None: 'none', Contrast: 'contrast', Glassy: 'glassy' },
 			'contrast',
 			'Items',
 		),

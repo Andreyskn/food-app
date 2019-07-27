@@ -7,7 +7,7 @@ export const initialRoute: RouteName = 'Home';
 
 export const routes = {
 	Home: makeRoute(Home, { noHeader: true }),
-	ListOfPlaces: makeRoute(ListOfPlaces, { headerProps: { mode: 'back' }, background: 'white' }),
+	ListOfPlaces: makeRoute(ListOfPlaces, { headerProps: { mode: 'back', background: 'accent' }, background: 'white' }),
 	OrderStarted: makeRoute(OrderStarted),
 	OrderPlaced: makeRoute(OrderPlaced),
 	Waiting: makeRoute(Waiting),

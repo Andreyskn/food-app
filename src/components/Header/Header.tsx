@@ -1,35 +1,51 @@
 import React, { useContext } from 'react';
 import classnames from 'classnames';
 import './header.scss';
-import { useBEM } from 'alias/utils';
-import { Button } from 'alias/components';
+import { useBEM, useProps } from 'alias/utils';
+import { Button, Image, ImageProps } from 'alias/components';
 import { AppContext } from 'alias/app';
 
 export type HeaderProps = {
-	logo?: any;
-	background?: 'accent' | React.CSSProperties['backgroundColor'];
-	mode?: 'user' | 'back';
+	background?: 'none' | 'accent';
+	mode?: 'user' | 'back' | 'logo';
 }
 
-const [headerBlock] = useBEM('header');
+const [headerBlock, headerModifier] = useBEM('header');
 
 export const Header: React.FC<HeaderProps> = (props) => {
-	const { mode } = props;
-	const { goBack } = useContext(AppContext);
+	const { mode, background } = props;
+	const { goBack, user, activeOrder } = useContext(AppContext);
+	const { isDefaultProp } = useProps(props, Header.defaultProps!);
 
-	// const [isDefaultProp] = useProps(props, Header.defaultProps!);
-	const buttonClass = classnames(
+	let logoSrc: ImageProps['src'];
+	let headerStyle: React.CSSProperties | undefined;
+
+	if (mode === 'logo' && activeOrder) {
+		logoSrc = activeOrder.restaurant.logo;
+
+		const { backgroundColor } = activeOrder.restaurant;
+		if (backgroundColor) headerStyle = { backgroundColor };
+	}
+
+	const headerClass = classnames(
 		headerBlock,
-		// { [buttonModifier({ background })]: !isDefaultProp('background') },
+		{ [headerModifier({ background })]: !isDefaultProp('background') },
 	);
 
+	const content: { [key in Required<HeaderProps>['mode']]: JSX.Element } = {
+		back: <Button text='Назад' icon={{ name: 'back' }} background='none' autoWidth onClick={goBack} />,
+		user: <Button image={user.image} text={user.firstName} background='none' autoWidth />,
+		logo: <Image src={logoSrc!} rounded />,
+	}
+
 	return (
-		<div className={buttonClass}>
-			{mode === 'back' && <Button text='Назад' background='none' icon={{ name: 'back' }} autoWidth onClick={goBack} /> || 'User'}
+		<div className={headerClass} style={headerStyle}>
+			{content[mode!]}
 		</div>
 	);
 }
 
 Header.defaultProps = {
 	mode: 'user',
+	background: 'none',
 }

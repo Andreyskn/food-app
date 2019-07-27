@@ -3,7 +3,7 @@ import { AppState, Actions } from './types';
 
 export const initialState: AppState = {
 	user: {
-		firstName: 'Имя',
+		firstName: 'Андрей',
 		lastName: 'Фамилия',
 		image: require('../../.storybook/utils/avatar.png'),
 		isInitiator: false,
@@ -14,10 +14,12 @@ export const initialState: AppState = {
 	activeOrder: {
 		restaurant: {
 			name: 'Гриль зона "Гарик"',
-			image: require('../assets/images/Logo-1.png'),
+			link: '',
+			logo: require('../assets/images/Logo-1.png'),
 			totalOrders: 112,
 			averagePrice: 180,
 			deliveryTime: 70,
+			backgroundColor: 'black',
 		},
 		status: 'new',
 		orderEndTime: Date.now() + 30 * 60 * 1000,
@@ -33,7 +35,39 @@ export const initialState: AppState = {
 			lastName: 'Фамилия',
 			image: require('../../.storybook/utils/avatar.png'),
 		},
-	}
+	},
+	restaurants: [
+		{
+			id: '1',
+			name: 'Гриль зона "Гарик"',
+			logo: require('../assets/images/Logo-1.png'),
+			deliveryTime: 90,
+			averagePrice: 240,
+			backgroundColor: 'black',
+		},
+		{
+			id: '2',
+			name: 'Янцзы',
+			logo: require('../assets/images/Logo-2.png'),
+			deliveryTime: 110,
+			averagePrice: 200,
+		},
+		{
+			id: '3',
+			name: 'Рыба. Рис',
+			logo: require('../assets/images/Logo-3.png'),
+			deliveryTime: 120,
+			averagePrice: 260,
+		},
+		{
+			id: '4',
+			name: 'Хан Буз',
+			logo: require('../assets/images/Logo-4.png'),
+			deliveryTime: 70,
+			averagePrice: 180,
+			tileColor: '#c21f22',
+		},
+	]
 }
 
 export type StoreContextType = AppState & {
@@ -47,3 +81,5 @@ export const useStore = () => {
 
 	return { ...state, dispatch };
 }
+
+export * from './types';

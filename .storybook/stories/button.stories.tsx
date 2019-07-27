@@ -14,7 +14,7 @@ storiesOf('Components', module).add('Button', () => {
 			{
 				Contrast: 'contrast',
 				Accent: 'accent',
-				Transparent: 'transparent',
+				Glassy: 'glassy',
 				None: 'none'
 			},
 			'contrast'

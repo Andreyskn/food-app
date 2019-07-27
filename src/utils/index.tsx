@@ -8,6 +8,7 @@ type UseBEM = (blockName: string) => [
 	(modifierName: string | { [key: string]: string | undefined }) => string,
 	(elementName: string) => [ReturnType<UseBEM>[0], ReturnType<UseBEM>[1]]
 ];
+
 export const useBEM: UseBEM = (blockName) => [
 	blockName,
 	(modifierName) => {
@@ -23,8 +24,13 @@ export const useBEM: UseBEM = (blockName) => [
 	},
 ];
 
-type UseProps = <P>(props: P, defaultProps: Partial<P>) => [(propName: keyof P) => boolean];
-export const useProps: UseProps = (props, defaultProps) => [(propName) => defaultProps[propName] === props[propName]];
+type UseProps = <P>(props: P, defaultProps: Partial<P>) => {
+	isDefaultProp: (propName: keyof P) => boolean;
+};
+
+export const useProps: UseProps = (props, defaultProps) => ({
+	isDefaultProp: (propName) => defaultProps[propName] === props[propName],
+});
 
 export const msToTime = (delta: number) => {
 	const ms = delta % 1000;
@@ -35,6 +41,6 @@ export const msToTime = (delta: number) => {
 	const hours = (delta - minutes) / 60;
 
 	return { hours, minutes, seconds };
-}
+};
 
 export const noop = () => {};

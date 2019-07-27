@@ -52,7 +52,7 @@ $tile-offset: 20px;
 
 			background-color: #fbfbfb;
 
-			justify-content: space-between;
+			justify-content: center;
 
 			> .caption {
 				.caption__title {
@@ -61,6 +61,7 @@ $tile-offset: 20px;
 			}
 
 			.caption-wrapper {
+				margin-top: auto;
 				margin-bottom: 0;
 
 				justify-content: space-around;

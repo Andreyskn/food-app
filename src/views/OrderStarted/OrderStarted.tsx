@@ -44,7 +44,7 @@ export const OrderStarted: React.FC = () => {
 
 			<div className='actions'>
 				<Button text='Я тоже хочу есть!' />
-				<Button background='transparent' text='Не сегодня...' onClick={() => navigateTo('Declined')} />
+				<Button background='glassy' text='Не сегодня...' onClick={() => navigateTo('Declined')} />
 			</div>
 		</div>
 	)

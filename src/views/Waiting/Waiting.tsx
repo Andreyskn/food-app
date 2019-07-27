@@ -21,7 +21,7 @@ export const Waiting: React.FC = () => {
 				<Tile background='contrast'>
 					<ChosenPlace />
 				</Tile>
-				<Tile background='transparent'>
+				<Tile background='glassy'>
 					<div className='waiting-tile'>
 						<Icon name='truck-coming' />
 						<Caption subtitle={{ text: 'примерное время доставки' }} weight='light' color='contrast' align='center'>

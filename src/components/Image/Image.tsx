@@ -15,7 +15,7 @@ const [imageBlock, imageModifier] = useBEM('image');
 export const Image: React.FC<ImageProps> = (props) => {
 	const { src, rounded, border, width } = props;
 
-	const [isDefaultProp] = useProps(props, Image.defaultProps!);
+	const { isDefaultProp } = useProps(props, Image.defaultProps!);
 	const imageClass = classnames(
 		imageBlock,
 		{ [imageModifier({ border })]: !isDefaultProp('border') },

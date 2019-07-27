@@ -11,7 +11,7 @@ export type TileSetProps = {
 export const TileSet: React.FC<TileSetProps> = (props) => {
 	const { direction, children } = props;
 
-	const [isDefaultProp] = useProps(props, TileSet.defaultProps!);
+	const { isDefaultProp } = useProps(props, TileSet.defaultProps!);
 	const tileSetClass = classnames(
 		tileSetBlock,
 		{ [tileSetModifier({ direction })]: !isDefaultProp('direction') },

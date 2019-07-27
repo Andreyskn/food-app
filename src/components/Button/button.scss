@@ -20,7 +20,7 @@
 	align-items: center;
 	justify-content: center;
 
-	&--clean {
+	&--custom {
 		height: auto;
 		padding: 0;
 
@@ -34,6 +34,13 @@
 
 	> .icon:not(:only-child) {
 		margin-right: 5px;
+	}
+
+	> .image {
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+		padding: 2px;
 	}
 
 	&:disabled {
@@ -55,7 +62,7 @@
 		background-color: #ed5567;
 	}
 
-	&--background-transparent {
+	&--background-glassy {
 		background-color: rgba(#ffffff, .35);
 	}
 

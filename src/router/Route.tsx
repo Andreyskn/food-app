@@ -15,7 +15,7 @@ const [wrapperBlock, wrapperModifier] = useBEM('wrapper');
 const Route: React.FC<RouteProps> = (props) => {
 	const { children, headerProps, noHeader, noWrapper, background } = props;
 
-	const [isDefaultProp] = useProps(props, Route.defaultProps!)
+	const { isDefaultProp } = useProps(props, Route.defaultProps!)
 	const wrapperClass = classnames(
 		wrapperBlock,
 		{ [wrapperModifier({ background })]: !isDefaultProp('background') },

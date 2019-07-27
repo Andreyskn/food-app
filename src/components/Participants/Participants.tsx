@@ -17,7 +17,6 @@ export const Participants: React.FC = () => {
 	const { user, activeOrder } = useContext(AppContext);
 	const { participants, initiator } = activeOrder!;
 
-
 	const gallery: { [key in GallerySlots]: JSX.Element[] } = { left: [], middle: [], right: [] };
 
 	if (user.isInitiator) gallery.middle.push(makeImage(user.image, 0));

@@ -1,4 +1,5 @@
 const path = require('path');
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 
 // Export a function. Accept the base config as the only param.
 module.exports = async ({ config, mode }) => {
@@ -21,6 +22,7 @@ module.exports = async ({ config, mode }) => {
 	);
 
 	config.resolve.extensions.push('.ts', '.tsx');
+	config.resolve.plugins = [new TsConfigPathsPlugin()];
 
 	// Return the altered config
 	return config;

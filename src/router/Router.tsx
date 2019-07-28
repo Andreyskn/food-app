@@ -23,5 +23,7 @@ export const useRouter = () => {
 		setHistory([...history, currentRoute]);
 	}
 
-	return { goBack, navigateTo, routes, currentRoute };
+	const Router = () => routes[currentRoute];
+
+	return { Router, goBack, navigateTo };
 }

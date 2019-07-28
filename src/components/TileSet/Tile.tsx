@@ -18,7 +18,7 @@ export const Tile: React.FC<TileProps> = (props) => {
 	const { isDefaultProp } = useProps(props, Tile.defaultProps!);
 	const itemClass = classnames(
 		tileElement,
-		{ [tileModifier({ background })]: !isDefaultProp('background') },
+		{ [tileModifier({ background })]: !customBackground && !isDefaultProp('background') },
 		{ [tileModifier({ padding })]: !isDefaultProp('padding') },
 		{ [tileModifier('grow')]: grow },
 	);

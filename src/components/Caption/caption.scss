@@ -65,6 +65,11 @@
 	}
 
 	&__title {
+		overflow: hidden;
+
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
 		font-size: 16px;
 
 		> b {
@@ -83,6 +88,11 @@
 	}
 
 	&__subtitle {
+		overflow: hidden;
+
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
 		opacity: .62;
 
 		font-family: 'Open Sans', sans-serif;

@@ -14,7 +14,7 @@ export const initialState: AppState = {
 	activeOrder: {
 		restaurant: {
 			name: 'Гриль зона "Гарик"',
-			link: '',
+			link: 'http://garikgrill.ru/#!/',
 			logo: require('../assets/images/Logo-1.png'),
 			totalOrders: 112,
 			averagePrice: 180,
@@ -66,6 +66,7 @@ export const initialState: AppState = {
 			deliveryTime: 70,
 			averagePrice: 180,
 			tileColor: '#c21f22',
+			backgroundColor: '#c21f22',
 		},
 	]
 }

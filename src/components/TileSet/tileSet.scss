@@ -3,7 +3,6 @@ $item: #{$root}__item;
 
 #{$root} {
 	display: flex;
-	overflow: hidden;
 
 	width: 100%;
 
@@ -23,6 +22,28 @@ $item: #{$root}__item;
 			content: '';
 
 			background-color: rgba(#333333, .1);
+		}
+
+		> #{$item}:first-child {
+			border-top-left-radius: 15px;
+			border-top-right-radius: 15px;
+		}
+
+		> #{$item}:last-child {
+			border-bottom-right-radius: 15px;
+			border-bottom-left-radius: 15px;
+		}
+	}
+
+	&--direction-row {
+		> #{$item}:first-child {
+			border-top-left-radius: 15px;
+			border-bottom-left-radius: 15px;
+		}
+
+		> #{$item}:last-child {
+			border-top-right-radius: 15px;
+			border-bottom-right-radius: 15px;
 		}
 	}
 

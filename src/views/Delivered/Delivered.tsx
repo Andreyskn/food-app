@@ -1,30 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classnames from 'classnames';
 import './delivered.scss';
 import { useBEM, price } from 'alias/utils';
 import { Button, Caption, TileSet, Tile, Icon, Text, Image } from 'alias/components';
 import { Bill } from './Bill';
-
-const user = {
-	id: 0,
-	firstName: 'Андрей',
-	lastName: 'Скипин',
-	image: require('../../../.storybook/utils/avatar.png'),
-	bill: 320,
-	isInitiator: true,
-	hasJoied: false,
-}
-
-const initiator = {
-	id:1,
-	firstName: 'Андрей',
-	lastName: 'Скипин',
-	image: require('../../../.storybook/utils/avatar.png'),
-}
+import { AppContext } from 'alias/app';
 
 const [viewBlock, viewModifier] = useBEM('delivered');
 
 export const Delivered: React.FC = () => {
+	const { user, activeOrder } = useContext(AppContext);
+	const { initiator } = activeOrder!;
+
 	const viewClassName = classnames(
 		viewBlock,
 		{ [viewModifier('participant')]: !user.isInitiator },
@@ -49,11 +36,11 @@ export const Delivered: React.FC = () => {
 				<TileSet direction='column'>
 					<Tile background='contrast'>
 						<Text>Не забудь!</Text>
-						<Image src={initiator.image} rounded />
-						<Caption>{initiator.firstName} <em>{initiator.lastName}</em></Caption>
+						<Image src={initiator!.image} rounded />
+						<Caption>{initiator!.firstName} <em>{initiator!.lastName}</em></Caption>
 					</Tile>
 					<Tile background='glassy'>
-						<Caption align='center' color='contrast' weight='light'>{price(user.bill)}</Caption>
+						<Caption align='center' color='contrast' weight='light'>{price(user.bill!)}</Caption>
 					</Tile>
 				</TileSet>
 			)}

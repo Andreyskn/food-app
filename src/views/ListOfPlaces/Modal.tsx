@@ -36,13 +36,13 @@ const ModalBase: React.FC<ModalBaseProps> = (props) => {
 
 	return (
 		<div className={overlayBlock} onClick={onClose}>
-			<div className={modalBlock}>
+			<div className={modalBlock} onClick={e => e.stopPropagation()}>
 				<TileSet direction='column'>
 					<Tile background='contrast' customBackground={background}>
 						<Image src={logo!} rounded />
 					</Tile>
 					<Tile background='contrast'>
-						<Caption>
+						<Caption align='center'>
 							{text}?
 						</Caption>
 						<div className={actionsElement}>

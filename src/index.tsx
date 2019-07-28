@@ -8,8 +8,7 @@ import { useStore, StoreContextType, initialState } from 'alias/store';
 type AppContextType = StoreContextType & RouterContextType;
 
 const defaultAppContext = {
-	user: initialState.user,
-	activeOrder: initialState.activeOrder,
+	...initialState,
 	dispatch: noop,
 	goBack: noop,
 	navigateTo: noop,
@@ -19,11 +18,11 @@ export const AppContext = React.createContext<AppContextType>(defaultAppContext)
 
 const App: React.FC = () => {
 	const store = useStore();
-	const { routes, currentRoute, ...router } = useRouter();
+	const { Router, ...routerActions } = useRouter();
 
 	return (
-		<AppContext.Provider value={{...store, ...router}}>
-			{routes[currentRoute]}
+		<AppContext.Provider value={{...store, ...routerActions}}>
+			<Router />
 		</AppContext.Provider>
 	)
 }

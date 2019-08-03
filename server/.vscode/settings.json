@@ -1,0 +1,18 @@
+{
+	"files.exclude": {
+		"node_modules": true,
+		"lib": true,
+		"dist": true
+	},
+	"search.exclude": {
+		"node_modules": true,
+		"lib": true,
+		"dist": true
+	},
+	"editor.tabCompletion": "on",
+	"editor.renderIndentGuides": true,
+	"editor.insertSpaces": false,
+	"editor.renderWhitespace": "boundary",
+	"files.insertFinalNewline": true,
+	"typescript.tsdk": "node_modules\\typescript\\lib"
+}

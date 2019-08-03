@@ -1,0 +1,52 @@
+{
+	"compilerOptions": {
+		"outDir": "dist",
+
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"lib": ["dom", "esnext"],
+
+		"allowJs": false,
+		"allowSyntheticDefaultImports": true,
+		"jsx": "react",
+		"sourceMap": true,
+
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"strictNullChecks": true,
+
+		"baseUrl": ".",
+		"paths": {
+			"alias/utils": [
+				"src/utils"
+			],
+			"alias/components": [
+				"src/components"
+			],
+			"alias/views": [
+				"src/views"
+			],
+			"alias/router": [
+				"src/router"
+			],
+			"alias/store": [
+				"src/store"
+			],
+			"alias/app": [
+				"src/"
+			],
+			"alias/shared": [
+				"../shared"
+			]
+		}
+	},
+	"include": [
+		"./src/**/*"
+	],
+	"exclude": [
+		"node_modules",
+	]
+}

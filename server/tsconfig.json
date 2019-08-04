@@ -6,7 +6,6 @@
 		"module": "commonjs",
 		"lib": ["esnext"],
 		"sourceMap": true,
-		"noEmit": true,
 
 		"strict": true,
 		"noUnusedLocals": true,

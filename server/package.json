@@ -7,7 +7,7 @@
     "build": "tsc",
     "watch-ts": "tsc -w",
     "watch-node": "nodemon dist/server/src/server.js",
-    "dev": "concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yello.bold, cyan.bold\" \"yarn run watch-ts\" \"yarn run watch-node\""
+    "dev": "concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yellow.bold, cyan.bold\" \"yarn run watch-ts\" \"yarn run watch-node\""
   },
   "dependencies": {
     "express": "^4.17.1",

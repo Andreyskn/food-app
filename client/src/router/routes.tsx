@@ -1,9 +1,12 @@
 import { makeRoute } from './Route';
 import { Home, ListOfPlaces, OrderSelection, OrderStarted, OrderPlaced, Waiting, Declined, Delivered } from 'alias/views';
+import { remote } from 'electron';
+
+const state = remote.getGlobal('state');
 
 export type RouteName = keyof typeof routes;
 
-export const initialRoute: RouteName = 'Home';
+export const initialRoute: RouteName = state.activeOrder ? 'OrderStarted' : 'Home';
 
 export const routes = {
 	Home: makeRoute(Home, { noHeader: true }),

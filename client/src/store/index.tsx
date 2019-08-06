@@ -86,8 +86,8 @@ const reducer = (state: AppState, action: Actions) => {
 	}
 };
 
-export const useStore = () => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+export const useStore = (initialState1: AppState = initialState) => {
+	const [state, dispatch] = useReducer(reducer, initialState1);
 
 	return { ...state, dispatch };
 }

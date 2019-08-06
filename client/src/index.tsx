@@ -4,28 +4,36 @@ import './styles/index.scss';
 import { noop } from 'alias/utils';
 import { useRouter, RouterContextType } from 'alias/router';
 import { useStore, StoreContextType, initialState } from 'alias/store';
-import { socket, runSocket, SocketContextType } from './socket';
+// import { socket, runSocket, SocketContextType } from './socket';
+import { runSocket } from './socket';
+import { remote } from 'electron';
 
-type AppContextType = StoreContextType & RouterContextType & SocketContextType;
+const state = remote.getGlobal('state');
+
+
+// type AppContextType = StoreContextType & RouterContextType & SocketContextType;
+type AppContextType = StoreContextType & RouterContextType;
 
 const defaultAppContext = {
 	...initialState,
 	dispatch: noop,
 	goBack: noop,
 	navigateTo: noop,
-	socket,
+	// socket,
 }
 
 export const AppContext = React.createContext<AppContextType>(defaultAppContext);
 
 const App: React.FC = () => {
 	const { Router, ...routerActions } = useRouter();
-	const store = useStore();
+	const store = useStore(state);
 
-	useEffect(() => runSocket(store.dispatch), []);
+	useEffect(() => {
+		runSocket(store.dispatch);
+	}, []);
 
 	return (
-		<AppContext.Provider value={{ ...store, ...routerActions, socket }}>
+		<AppContext.Provider value={{ ...store, ...routerActions }}>
 			<Router />
 		</AppContext.Provider>
 	)

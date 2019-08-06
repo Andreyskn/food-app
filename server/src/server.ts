@@ -48,7 +48,7 @@ const activeOrder: ClientState['activeOrder'] = {
 	restaurant: {
 		name: 'Гриль зона "Гарик"',
 		link: 'http://garikgrill.ru/#!/',
-		logo: '/images/Logo-1.png',
+		logo: 'http://localhost:3000/images/Logo-1.png',
 		totalOrders: 112,
 		averagePrice: 180,
 		deliveryTime: 70,
@@ -97,29 +97,45 @@ const createSocketMeta = (socket: Socket, initialData: SocketMetaData) => {
 	return { set, get, clear };
 }
 
+const initialData: SocketMetaData = {
+	shouldSendRestaurants: !activeOrder,
+	shouldSendActiveOrder: activeOrder !== null,
+}
+
 io.on('connection', (_socket) => {
 	console.log('--- CONNECT ---');
 
 	const socket: Socket = _socket;
 
-	const meta = createSocketMeta(_socket, {
-		shouldSendRestaurants: !activeOrder,
-		shouldSendActiveOrder: activeOrder !== null,
-	});
+	const meta = createSocketMeta(_socket, initialData);
 
-	socket.on('current view: Home', () => {
-		console.log('current view: Home');
+	// socket.on('current view: Home', () => {
+	// 	console.log('current view: Home', meta.get('shouldSendActiveOrder'), meta.get('shouldSendRestaurants'));
 
-		if (meta.get('shouldSendActiveOrder')) {
-			meta.set({ shouldSendActiveOrder: false });
-			socket.emit('active-order', { activeOrder });
-		}
-		else if (meta.get('shouldSendRestaurants')) {
-			meta.set({ shouldSendRestaurants: false });
-			socket.emit('restaurant-list', { restaurants });
-		}
+	// 	if (meta.get('shouldSendActiveOrder')) {
+	// 		meta.set({ shouldSendActiveOrder: false });
+	// 		socket.emit('active-order', { activeOrder });
+	// 	}
+	// 	else if (meta.get('shouldSendRestaurants')) {
+	// 		meta.set({ shouldSendRestaurants: false });
+	// 		socket.emit('restaurant-list', { restaurants });
+	// 	}
 
-	});
+	// });
+
+	if (meta.get('shouldSendActiveOrder')) {
+		meta.set({ shouldSendActiveOrder: false });
+		socket.emit('active-order', { activeOrder });
+	}
+	else if (meta.get('shouldSendRestaurants')) {
+		meta.set({ shouldSendRestaurants: false });
+		socket.emit('restaurant-list', { restaurants });
+	}
+
+	_socket.on('reset', () => {
+		console.log('--- reset ---');
+		meta.set(initialData);
+	})
 
 	_socket.on('disconnect', () => {
 		meta.clear();

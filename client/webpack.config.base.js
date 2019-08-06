@@ -4,18 +4,7 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	mode: 'development',
-	devtool: 'inline-source-map',
-
-	devServer: {
-		contentBase: path.join(__dirname, 'src'),
-		publicPath: '/',
-		historyApiFallback: true,
-		hot: true,
-		proxy: {
-			'*': 'http://localhost:3000',
-		},
-	},
+	target: 'electron-renderer',
 
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js'],

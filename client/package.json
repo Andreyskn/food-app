@@ -8,7 +8,7 @@
 		"prebuild": "rimraf dist",
 		"build": "webpack --config webpack.config.prod.js",
 		"dev-renderer": "webpack-dev-server --config webpack.config.dev.js",
-		"dev-main": "nodemon --exec \"electron ./electron/main.js\"",
+		"dev-main": "nodemon --exec \"electron ./electron/\"",
 		"dev": "concurrently -k -p \"[{name}]\" -n \"renderer,main\" -c \"cyan.bold,yellow.bold\" \"yarn dev-renderer\" \"yarn dev-main\""
 	},
 	"dependencies": {

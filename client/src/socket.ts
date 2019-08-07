@@ -12,6 +12,6 @@ import { ipcRenderer as ipc } from 'electron';
 export const runSocket = (dispatch: StoreContextType['dispatch']) => {
 	// socket.on('restaurant-list', payload => dispatch({ type: 'RESTAURANT_LIST', payload }));
 	// socket.on('active-order', payload => dispatch({ type: 'ACTIVE_ORDER_DATA', payload }));
-	ipc.send('loaded-app');
+	// ipc.send('loaded-app');
 	ipc.on('sync-state', (_, payload) => dispatch({ type: 'ACTIVE_ORDER_DATA', payload }));
 }

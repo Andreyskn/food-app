@@ -9,10 +9,6 @@ const [viewBlock] = useBEM('home');
 export const Home: React.FC = () => {
 	const { navigateTo, user, activeOrder, restaurants } = useContext(AppContext);
 
-	// useEffect(() => {
-	// 	socket.emit('current view: Home');
-	// }, []);
-
 	useEffect(() => {
 		if (activeOrder) navigateTo('OrderStarted');
 	});

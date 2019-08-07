@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { routes, initialRoute, RouteName } from './routes';
+import { routes, RouteName } from './routes';
 
 export type RouterContextType = {
 	goBack: () => void;
 	navigateTo: (route: RouteName) => void;
 }
 
-export const useRouter = () => {
+export const useRouter = (initialRoute: RouteName) => {
 	const [history, setHistory] = useState<RouteName[]>([]);
 	const [currentRoute, setRoute] = useState(initialRoute);
 

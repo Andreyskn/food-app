@@ -2,20 +2,20 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
 import { noop } from 'alias/utils';
-import { useRouter, RouterContextType } from 'alias/router';
-import { useStore, StoreContextType, initialState } from 'alias/store';
+import { useRouter, RouterContextType, RouteName } from 'alias/router';
+import { useStore, StoreContextType, AppState } from 'alias/store';
 // import { socket, runSocket, SocketContextType } from './socket';
-import { runSocket } from './socket';
-import { remote } from 'electron';
+// import { runSocket } from './socket';
+import { ipcRenderer as ipc } from 'electron';
 
-const state = remote.getGlobal('state');
-
+// ipc.send('app-is-ready');
+// ipc.on('run-app', (_, state, route) => runApp(state, route));
 
 // type AppContextType = StoreContextType & RouterContextType & SocketContextType;
 type AppContextType = StoreContextType & RouterContextType;
 
 const defaultAppContext = {
-	...initialState,
+	user: {} as any,
 	dispatch: noop,
 	goBack: noop,
 	navigateTo: noop,
@@ -24,19 +24,24 @@ const defaultAppContext = {
 
 export const AppContext = React.createContext<AppContextType>(defaultAppContext);
 
-const App: React.FC = () => {
-	const { Router, ...routerActions } = useRouter();
-	const store = useStore(state);
-
-	useEffect(() => {
-		runSocket(store.dispatch);
-	}, []);
-
-	return (
-		<AppContext.Provider value={{ ...store, ...routerActions }}>
-			<Router />
-		</AppContext.Provider>
-	)
+const runApp = (initialState: AppState, initialRoute: RouteName) => {
+	const App: React.FC = () => {
+		const { Router, ...routerActions } = useRouter(initialRoute);
+		const store = useStore(initialState);
+	
+		useEffect(() => {
+			// runSocket(store.dispatch);
+			ipc.on('sync-state', (_, payload) => store.dispatch({ type: 'SYNC_STATE', payload }));
+		}, []);
+	
+		return (
+			<AppContext.Provider value={{ ...store, ...routerActions }}>
+				<Router />
+			</AppContext.Provider>
+		)
+	}
+	
+	ReactDOM.render(<App />, document.getElementById('root'));
 }
-
-ReactDOM.render(<App />, document.getElementById('root'));
+// @ts-ignore
+runApp(...ipc.sendSync('ready-to-render'));

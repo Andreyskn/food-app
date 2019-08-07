@@ -2,16 +2,16 @@ import { useReducer } from 'react';
 import { AppState } from './types';
 import { Actions } from './actions';
 
-export const initialState: AppState = {
-	user: {
-		firstName: 'Андрей',
-		lastName: 'Фамилия',
-		image: require('../../.storybook/utils/avatar.png'),
-		isInitiator: false,
-		hasJoined: false,
-		hasDeclined: false,
-		bill: 320,
-	},
+// export const initialState: AppState = {
+	// user: {
+	// 	firstName: 'Андрей',
+	// 	lastName: 'Фамилия',
+	// 	image: require('../../.storybook/utils/avatar.png'),
+	// 	isInitiator: false,
+	// 	hasJoined: false,
+	// 	hasDeclined: false,
+	// 	bill: 320,
+	// },
 	// activeOrder: {
 	// 	restaurant: {
 	// 		name: 'Гриль зона "Гарик"',
@@ -70,7 +70,7 @@ export const initialState: AppState = {
 	// 		backgroundColor: '#c21f22',
 	// 	},
 	// ]
-}
+// }
 
 export type StoreContextType = AppState & {
 	dispatch: React.Dispatch<Actions>;
@@ -78,16 +78,17 @@ export type StoreContextType = AppState & {
 
 const reducer = (state: AppState, action: Actions) => {
 	switch (action.type) {
-		case 'RESTAURANT_LIST':
-		case 'ACTIVE_ORDER_DATA':
+		// case 'RESTAURANT_LIST':
+		// case 'ACTIVE_ORDER_DATA':
+		case 'SYNC_STATE':
 			return { ...state, ...action.payload };
 		default:
 			return state;
 	}
 };
 
-export const useStore = (initialState1: AppState = initialState) => {
-	const [state, dispatch] = useReducer(reducer, initialState1);
+export const useStore = (initialState: AppState) => {
+	const [state, dispatch] = useReducer(reducer, initialState);
 
 	return { ...state, dispatch };
 }

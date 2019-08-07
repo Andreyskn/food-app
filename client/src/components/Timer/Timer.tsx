@@ -23,9 +23,11 @@ export const Timer: React.FC<TimerProps> = (props) => {
 
 	const tick = () => forceUpdate({});
 
+	const shouldTick = hours > 0 || minutes > 0 || seconds > 0;
+
 	useEffect(() => {
 		let timerId: number;
-		if (hours > 0 || minutes > 0 || seconds > 0) {
+		if (shouldTick) {
 			timerId = window.setTimeout(tick, 1000);
 		}
 		return () => clearTimeout(timerId);
@@ -33,11 +35,13 @@ export const Timer: React.FC<TimerProps> = (props) => {
 
 	return (
 		<span className={timerBlock}>
-			{
+			{shouldTick ? (
 				(hours > 0 ? `${hours}:` : '') +
 				`${minutes}`.padStart(2, '0') + ':' +
 				`${seconds}`.padStart(2, '0')
-			}
+			) : (
+				'00:00'
+			)}
 		</span>
 	)
 }

@@ -4,14 +4,17 @@ import { Actions } from './actions';
 
 export const initialState: AppState = {
 	user: {
+		id: '3',
 		firstName: 'Андрей',
-		lastName: 'Фамилия',
-		image: require('../../.storybook/utils/avatar.png'),
+		lastName: 'Скипин',
+		image: '/images/avatars/3.png',
 		isInitiator: false,
 		hasJoined: false,
 		hasDeclined: false,
 		bill: 320,
 	},
+	restaurants: [],
+	activeOrder: null,
 	// activeOrder: {
 	// 	restaurant: {
 	// 		name: 'Гриль зона "Гарик"',
@@ -76,11 +79,12 @@ export type StoreContextType = AppState & {
 	dispatch: React.Dispatch<Actions>;
 };
 
-const reducer = (state: AppState, action: Actions) => {
+const reducer = (state: AppState, action: Actions): AppState => {
 	switch (action.type) {
 		case 'RESTAURANT_LIST':
+			return { ...state, restaurants: action.payload };
 		case 'ACTIVE_ORDER_DATA':
-			return { ...state, ...action.payload };
+			return { ...state, activeOrder: action.payload };
 		default:
 			return state;
 	}

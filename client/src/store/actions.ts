@@ -1,6 +1,6 @@
-import { AppState } from './types';
+import { Restaurant, Order } from 'alias/shared';
 
 export type Actions =
 	| { type: 'INIT' }
-	| { type: 'RESTAURANT_LIST', payload: Pick<AppState, 'restaurants'> }
-	| { type: 'ACTIVE_ORDER_DATA', payload: Pick<AppState, 'activeOrder'> }
+	| { type: 'RESTAURANT_LIST', payload: Restaurant[] }
+	| { type: 'ACTIVE_ORDER_DATA', payload: Order }

@@ -1,75 +1,34 @@
 import { createServer } from 'http';
 import express from 'express';
 import SocketIO from 'socket.io';
-import { ClientState, ServerSocket as Socket } from '../../shared';
+import path from 'path';
+
+import {
+	ServerSocket as Socket,
+	Order,
+} from '../../shared';
+import { db } from './fakeDB';
 
 const app = express();
 const server = createServer(app);
 const io = SocketIO(server);
 const port = process.env.PORT || 3000;
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.resolve(__dirname, '../../public')));
 
-const restaurants: ClientState['restaurants'] = [
-	{
-		id: '1',
-		name: 'Гриль зона "Гарик"',
-		logo: '/images/Logo-1.png',
-		deliveryTime: 90,
-		averagePrice: 240,
-		backgroundColor: 'black',
-	},
-	{
-		id: '2',
-		name: 'Янцзы',
-		logo: '/images/Logo-2.png',
-		deliveryTime: 110,
-		averagePrice: 200,
-	},
-	{
-		id: '3',
-		name: 'Рыба. Рис',
-		logo: '/images/Logo-3.png',
-		deliveryTime: 120,
-		averagePrice: 260,
-	},
-	{
-		id: '4',
-		name: 'Хан Буз',
-		logo: '/images/Logo-4.png',
-		deliveryTime: 70,
-		averagePrice: 180,
-		tileColor: '#c21f22',
-		backgroundColor: '#c21f22',
-	},
-];
-
-const activeOrder: ClientState['activeOrder'] = {
-	restaurant: {
-		name: 'Гриль зона "Гарик"',
-		link: 'http://garikgrill.ru/#!/',
-		logo: '/images/Logo-1.png',
-		totalOrders: 112,
-		averagePrice: 180,
-		deliveryTime: 70,
-		backgroundColor: 'black',
-	},
+const activeOrder: Order = {
+	restaurant: db.restaurant('1'),
 	status: 'new',
 	orderEndTime: Date.now() + 30 * 60 * 1000,
 	deliveryEndTime: Date.now() + 1.5 * 60 * 60 * 1000,
 	participants: [
-		{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 150 },
-		{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 170 },
-		{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 260 },
-		{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 190 },
+		{ ...db.user('1'), bill: 150 },
+		{ ...db.user('6'), bill: 170 },
+		{ ...db.user('2'), bill: 260 },
+		{ ...db.user('4'), bill: 190 },
 	],
-	initiator: {
-		firstName: 'Имя',
-		lastName: 'Фамилия',
-		image: '/images/avatar.png',
-	},
+	initiator: db.user('5'),
 };
-
 
 type SocketMetaData = {
 	shouldSendRestaurants: boolean;
@@ -98,7 +57,7 @@ const createSocketMeta = (socket: Socket, initialData: SocketMetaData) => {
 }
 
 io.on('connection', (_socket) => {
-	console.log('--- CONNECT ---');
+	console.log('[<---] Connect');
 
 	const socket: Socket = _socket;
 
@@ -108,15 +67,19 @@ io.on('connection', (_socket) => {
 	});
 
 	socket.on('current view: Home', () => {
-		console.log('current view: Home');
+		console.log('[VIEW] Home');
 
 		if (meta.get('shouldSendActiveOrder')) {
+			console.log('[--->] Active Order');
+			
 			meta.set({ shouldSendActiveOrder: false });
-			socket.emit('active-order', { activeOrder });
+			socket.emit('active-order', activeOrder);
 		}
 		else if (meta.get('shouldSendRestaurants')) {
+			console.log('[--->] Restaurants List');
+
 			meta.set({ shouldSendRestaurants: false });
-			socket.emit('restaurant-list', { restaurants });
+			socket.emit('restaurant-list', db.restaurants());
 		}
 
 	});
@@ -127,5 +90,5 @@ io.on('connection', (_socket) => {
 });
 
 server.listen(port, () => {
-	console.log('Running server on port', port);
+	console.log(`Running on: ${port}`);
 });

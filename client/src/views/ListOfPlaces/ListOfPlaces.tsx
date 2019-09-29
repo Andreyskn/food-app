@@ -6,8 +6,12 @@ import { RestaurantTile } from './RestaurantTile';
 import { AppContext } from 'alias/app';
 import { useModal } from './Modal';
 
+import { ipcRenderer as ipc } from 'electron';
+
 const [viewBlock, , viewElement] = useBEM('list-of-places');
 const [tileListElement] = viewElement('tile-list');
+
+const onSelect = (restaurantId: string) => () => ipc.send('select-restaurant', restaurantId);
 
 export const ListOfPlaces: React.FC = () => {
 	const { restaurants } = useContext(AppContext);
@@ -27,7 +31,7 @@ export const ListOfPlaces: React.FC = () => {
 						text: props.name,
 						logo: props.logo,
 						background: props.backgroundColor!, // FIXME:
-						onSelect: () => console.log(props.id),
+						onSelect: onSelect(props.id),
 					});
 					return <RestaurantTile key={i} {...props} onClick={onClick} />
 				})}

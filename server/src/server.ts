@@ -44,31 +44,65 @@ const restaurants: ClientState['restaurants'] = [
 	},
 ];
 
-const activeOrder: ClientState['activeOrder'] = {
-	restaurant: {
-		name: 'Гриль зона "Гарик"',
-		link: 'http://garikgrill.ru/#!/',
-		logo: 'http://localhost:3000/images/Logo-1.png',
-		totalOrders: 112,
-		averagePrice: 180,
-		deliveryTime: 70,
-		backgroundColor: 'black',
-	},
-	status: 'new',
-	orderEndTime: Date.now() + 30 * 60 * 1000,
-	deliveryEndTime: Date.now() + 1.5 * 60 * 60 * 1000,
-	participants: [
-		{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 150 },
-		{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 170 },
-		{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 260 },
-		{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 190 },
-	],
-	initiator: {
-		firstName: 'Имя',
-		lastName: 'Фамилия',
-		image: '/images/avatar.png',
-	},
+let activeOrder: ClientState['activeOrder'];
+
+const user: ClientState['user'] = {
+	firstName: 'Андрей',
+	lastName: 'Фамилия',
+	image: '/images/avatar.png',
+	// isInitiator: false,
+	// hasJoined: true,
+	// hasDeclined: true,
+	// bill: 320,
 };
+
+const userProxy = new Proxy(user, {
+	set: (obj, prop: keyof typeof user, value) => {
+		const isNewValue = !Object.is(obj[prop], value);
+		const didUpdate = Reflect.set(obj, prop, value);
+		if (didUpdate && isNewValue) console.log('user updated', user);
+		return didUpdate;
+	},
+})
+
+const createOrder = () => {
+	activeOrder = new Proxy({
+		restaurant: {
+			name: 'Гриль зона "Гарик"',
+			link: 'http://garikgrill.ru/#!/',
+			logo: 'http://localhost:3000/images/Logo-1.png',
+			totalOrders: 112,
+			averagePrice: 180,
+			deliveryTime: 70,
+			backgroundColor: 'black',
+		},
+		status: 'new' as any,
+		orderEndTime: Date.now() + 30 * 60 * 1000,
+		// deliveryEndTime: Date.now() + 1.5 * 60 * 60 * 1000,
+		// participants: [
+		// 	{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 150 },
+		// 	{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 170 },
+		// 	{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 260 },
+		// 	{ firstName: 'Имя', lastName: 'Фамилия', image: '/images/avatar.png', bill: 190 },
+		// ],
+		participants: [],
+		// initiator: {
+		// 	firstName: 'Имя',
+		// 	lastName: 'Фамилия',
+		// 	image: '/images/avatar.png',
+		// },
+	}, {
+		set: (obj, prop: keyof ClientState['activeOrder'], value) => {
+			const isNewValue = !Object.is(obj[prop], value);
+			const didUpdate = Reflect.set(obj, prop, value);
+
+			if (didUpdate && isNewValue) {
+				io.emit('active-order', { activeOrder });
+			}
+			return didUpdate;
+		},
+	})
+}
 
 
 type SocketMetaData = {
@@ -97,31 +131,22 @@ const createSocketMeta = (socket: Socket, initialData: SocketMetaData) => {
 	return { set, get, clear };
 }
 
-const initialData: SocketMetaData = {
-	shouldSendRestaurants: !activeOrder,
-	shouldSendActiveOrder: activeOrder !== null,
-}
+// const initialData: SocketMetaData = {
+// 	shouldSendRestaurants: !activeOrder,
+// 	shouldSendActiveOrder: Boolean(activeOrder),
+// }
 
 io.on('connection', (_socket) => {
-	console.log('--- CONNECT ---');
+	console.log('--- CONNECT ---', _socket.handshake.query);
 
 	const socket: Socket = _socket;
 
-	const meta = createSocketMeta(_socket, initialData);
+	const meta = createSocketMeta(_socket, {
+		shouldSendRestaurants: !activeOrder,
+		shouldSendActiveOrder: Boolean(activeOrder),
+	});
 
-	// socket.on('current view: Home', () => {
-	// 	console.log('current view: Home', meta.get('shouldSendActiveOrder'), meta.get('shouldSendRestaurants'));
-
-	// 	if (meta.get('shouldSendActiveOrder')) {
-	// 		meta.set({ shouldSendActiveOrder: false });
-	// 		socket.emit('active-order', { activeOrder });
-	// 	}
-	// 	else if (meta.get('shouldSendRestaurants')) {
-	// 		meta.set({ shouldSendRestaurants: false });
-	// 		socket.emit('restaurant-list', { restaurants });
-	// 	}
-
-	// });
+	_socket.emit('user-data', { user });
 
 	if (meta.get('shouldSendActiveOrder')) {
 		meta.set({ shouldSendActiveOrder: false });
@@ -132,10 +157,11 @@ io.on('connection', (_socket) => {
 		socket.emit('restaurant-list', { restaurants });
 	}
 
-	_socket.on('reset', () => {
-		console.log('--- reset ---');
-		meta.set(initialData);
-	})
+	_socket.on('select-restaurant', (data) => {
+		userProxy.isInitiator = true;
+		createOrder();
+		console.log(data);
+	});
 
 	_socket.on('disconnect', () => {
 		meta.clear();

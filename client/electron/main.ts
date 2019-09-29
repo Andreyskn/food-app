@@ -1,9 +1,10 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import * as io from 'socket.io-client';
+import { AppState } from '../src/store';
 
 let win: any;
-let socket = io.connect('http://localhost:3000');
-let state: any = {
+let socket = io.connect('http://localhost:3000', {query: 'userId=1'});
+let state: AppState = {
 	user: {
 		firstName: 'Андрей',
 		lastName: 'Фамилия',
@@ -43,14 +44,20 @@ const syncState = () => win.webContents.send('sync-state', state);
 
 const updateState = (data: any) => {
 	state = { ...state, ...data };
+	console.log(state)
 	syncState();
 }
 
+socket.on('user-data', updateState);
 socket.on('restaurant-list', updateState);
 socket.on('active-order', updateState);
 
 ipcMain.on('ready-to-render', (e) => {
-	// e.reply('run-app', state)
 	const initialRoute = state.activeOrder ? 'OrderStarted' : 'Home';
 	e.returnValue = [state, initialRoute];
+});
+
+ipcMain.on('select-restaurant', (_, restaurantId) => {
+	console.log(5)
+	socket.emit('select-restaurant', restaurantId);
 });

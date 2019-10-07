@@ -64,3 +64,17 @@ export const db = {
 	restaurant: (id: string) => storage.restaurants.find(r => r.id === id) as Restaurant,
 	user: (id: string) => storage.users.find(u => u.id === id) as User,
 };
+
+// const activeOrder: Order = {
+// 	restaurant: db.restaurant('1'),
+// 	status: 'new',
+// 	orderEndTime: Date.now() + 30 * 60 * 1000,
+// 	deliveryEndTime: Date.now() + 1.5 * 60 * 60 * 1000,
+// 	participants: [
+// 		{ ...db.user('1'), bill: 150 },
+// 		{ ...db.user('6'), bill: 170 },
+// 		{ ...db.user('2'), bill: 260 },
+// 		{ ...db.user('4'), bill: 190 },
+// 	],
+// 	initiator: db.user('5'),
+// };

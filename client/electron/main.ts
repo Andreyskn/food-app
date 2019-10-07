@@ -3,7 +3,7 @@ import * as io from 'socket.io-client';
 import { AppState } from '../src/store';
 
 let win: any;
-let socket = io.connect('http://localhost:3030', { query: 'userId=3' });
+let socket = io.connect('http://localhost:3000', { query: 'userId=3' });
 let state: AppState = {
 	user: {
 		id: '3',
@@ -17,7 +17,7 @@ let state: AppState = {
 
 const createWindow = () => {
 	win = new BrowserWindow({
-		width: 1200,
+		width: 1400,
 		height: 800,
 		webPreferences: {
 			nodeIntegration: true,
@@ -33,7 +33,7 @@ const createWindow = () => {
 	});
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 const syncState = () => win.webContents.send('sync-state', state);
 
@@ -48,6 +48,7 @@ socket.on('active-order', (activeOrder) => updateState({ activeOrder }));
 ipcMain.on('ready-to-render', (e) => {
 	const initialRoute = state.activeOrder ? 'OrderStarted' : 'Home';
 	e.returnValue = [state, initialRoute];
+	socket.emit('current view: Home');
 });
 
 ipcMain.on('select-restaurant', (_, restaurantId) => {

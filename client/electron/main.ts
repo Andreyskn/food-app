@@ -3,54 +3,47 @@ import * as io from 'socket.io-client';
 import { AppState } from '../src/store';
 
 let win: any;
-let socket = io.connect('http://localhost:3000', {query: 'userId=1'});
+let socket = io.connect('http://localhost:3030', { query: 'userId=3' });
 let state: AppState = {
 	user: {
+		id: '3',
 		firstName: 'Андрей',
-		lastName: 'Фамилия',
-		image: '/images/avatar.png',
-		isInitiator: false,
-		hasJoined: false,
-		hasDeclined: false,
-		bill: 320,
+		lastName: 'Скипин',
+		image: '/images/avatars/3.png',
 	},
+	restaurants: [],
+	activeOrder: null,
 };
 
-function createWindow () {
+const createWindow = () => {
 	win = new BrowserWindow({
 		width: 1200,
 		height: 800,
 		webPreferences: {
 			nodeIntegration: true,
 		},
-	})
+	});
 
-	win.loadURL('http://localhost:8080/')
+	win.loadURL('http://localhost:8080/');
 
 	win.webContents.openDevTools();
 	
-	win.on('closed', function () {
+	win.on('closed', () => {
 		win = null;
-	})
+	});
 }
 
 app.on('ready', createWindow)
-
-app.on('window-all-closed', function () {
-	if (process.platform !== 'darwin') app.quit()
-})
 
 const syncState = () => win.webContents.send('sync-state', state);
 
 const updateState = (data: any) => {
 	state = { ...state, ...data };
-	console.log(state)
 	syncState();
 }
 
-socket.on('user-data', updateState);
-socket.on('restaurant-list', updateState);
-socket.on('active-order', updateState);
+socket.on('restaurant-list', (restaurants) => updateState({ restaurants }));
+socket.on('active-order', (activeOrder) => updateState({ activeOrder }));
 
 ipcMain.on('ready-to-render', (e) => {
 	const initialRoute = state.activeOrder ? 'OrderStarted' : 'Home';
@@ -58,6 +51,5 @@ ipcMain.on('ready-to-render', (e) => {
 });
 
 ipcMain.on('select-restaurant', (_, restaurantId) => {
-	console.log(5)
 	socket.emit('select-restaurant', restaurantId);
 });

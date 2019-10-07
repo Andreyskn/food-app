@@ -8,9 +8,6 @@ import { useStore, StoreContextType, AppState } from 'alias/store';
 // import { runSocket } from './socket';
 import { ipcRenderer as ipc } from 'electron';
 
-// ipc.send('app-is-ready');
-// ipc.on('run-app', (_, state, route) => runApp(state, route));
-
 // type AppContextType = StoreContextType & RouterContextType & SocketContextType;
 type AppContextType = StoreContextType & RouterContextType;
 
@@ -19,6 +16,8 @@ const defaultAppContext = {
 	dispatch: noop,
 	goBack: noop,
 	navigateTo: noop,
+	activeOrder: null,
+	restaurants: [],
 	// socket,
 }
 

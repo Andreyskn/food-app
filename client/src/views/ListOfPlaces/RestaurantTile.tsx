@@ -1,9 +1,9 @@
 import React from 'react';
 import { TileSet, Tile, Image, Caption, Button } from 'alias/components';
 import { price, minutes } from 'alias/utils';
-import { RestaurantOption } from 'alias/store';
+import { Restaurant } from 'alias/shared';
 
-export type RestaurantTileProps = RestaurantOption & {
+export type RestaurantTileProps = Restaurant & {
 	onClick: () => void;
 };
 

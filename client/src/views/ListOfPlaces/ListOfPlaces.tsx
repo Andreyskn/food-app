@@ -26,7 +26,7 @@ export const ListOfPlaces: React.FC = () => {
 				{/* <Button text='Добавить' background='accent' icon={{ name: 'plus' }} autoWidth /> */}
 			</div>
 			<div className={tileListElement}>
-				{restaurants.map((props, i) => {
+				{restaurants.map((props: any, i: any) => {
 					const onClick = () => showModal({
 						text: props.name,
 						logo: props.logo,

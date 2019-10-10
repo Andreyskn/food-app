@@ -1,9 +1,13 @@
-export type User = {
-	id: string;
-	firstName: string;
-	lastName: string;
-	image: string;
+import { UsersState, UserId } from './types';
 
-	status: unknown;
-	order: unknown;
+let state: UsersState = {};
+
+export const users = {
+	createUser: (id: UserId) => {
+		state[id] = {
+			status: 'selecting',
+			id,
+		}
+		return state;
+	}
 }

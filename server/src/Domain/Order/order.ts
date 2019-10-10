@@ -1,22 +1,18 @@
-type Timestamp = number;
+import { OrderState, RestaurantId, UserId, Timestamp } from './types';
 
-type Order = {
-	id: string;
-	status: 'selection' | 'delivery' | 'payment' | 'done';
-
-	participants: string[];
-	host: string;
-
-	restaurant: string;
-
-	timers: {
-		orderEndTime: Timestamp; 
-		deliveryEndTime?: Timestamp;
-	};
+let state: OrderState = {
+	status: 'idle',
 }
 
-type OrderDev = Partial<Order>;
-
-const state: OrderDev = {
-
+export const order = {
+	createOrder: (restaurant: RestaurantId, host: UserId, startTime: Timestamp) => {
+		state = {
+			status: 'selection',
+			host,
+			restaurant,
+			participants: [],
+			selectionEndsAt: startTime + 30 * 60 * 1000,
+		}
+		return state;
+	},
 }

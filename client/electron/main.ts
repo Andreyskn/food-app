@@ -52,5 +52,5 @@ ipcMain.on('ready-to-render', (e) => {
 });
 
 ipcMain.on('select-restaurant', (_, restaurantId) => {
-	socket.emit('select-restaurant', restaurantId);
+	socket.emit('Restaurant chosen', restaurantId);
 });

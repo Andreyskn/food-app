@@ -1,28 +1,35 @@
 import SocketIO from 'socket.io';
-
 import { merge } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 import { Socket } from './types';
-import { streams, createEvent, createSocketEventStream } from '../EventStream';
+import { response$, request$ } from '../eventStreams';
 import { responseMapper } from './responseMapper';
+import { createSocketEvent, createSocketEventStream } from './helpers';
 
 export const runSocket = (io: SocketIO.Server) => {
 	io.on('connection', socketHandler);
 
-	streams.toClient
+	response$
 		.pipe(map(responseMapper))
-		.subscribe(res => {
-			const targetSocket = io.sockets.connected[res.socketId];
-			targetSocket.emit(res.event, res.payload);
+		.subscribe({
+			next: res => {
+				const targetSocket = io.sockets.connected[res.target!];
+				targetSocket.emit(res.event, res.payload);
+			}
 		});
 }
 
 const socketHandler = (socket: Socket) => {
 	const fromEvent = createSocketEventStream(socket);
-	const a = fromEvent('current view: Home');
 
-	merge(a)
-		.pipe(startWith(createEvent(socket, 'User connected')))
-		.subscribe({ next: e => streams.fromClient.next(e) });
+	merge(
+		fromEvent('Restaurant chosen')
+	)
+		.pipe(
+			startWith(
+				createSocketEvent(socket, 'User connected', { socketId: socket.id })
+			)
+		)
+		.subscribe(request$);
 }

@@ -2,7 +2,7 @@ import SocketIO from 'socket.io';
 import { merge } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
-import { Socket } from './types';
+import { Socket, SocketResponse } from './types';
 import { response$, request$ } from '../eventStreams';
 import { responseMapper } from './responseMapper';
 import { createSocketEvent, createSocketEventStream } from './helpers';
@@ -13,9 +13,17 @@ export const runSocket = (io: SocketIO.Server) => {
 	response$
 		.pipe(map(responseMapper))
 		.subscribe({
-			next: res => {
-				const targetSocket = io.sockets.connected[res.target!];
-				targetSocket.emit(res.event, res.payload);
+			next: (res: SocketResponse) => {
+				switch (res.type) {
+					case 'global':
+						io.emit(res.name, res.payload);
+						break;
+					case 'target': {
+						const targetSocket = io.sockets.connected[res.targetSocket];
+						targetSocket.emit(res.name, res.payload);
+						break;
+					}
+				}
 			}
 		});
 }

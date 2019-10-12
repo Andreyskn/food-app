@@ -1,5 +1,5 @@
 import { SystemError } from '../types';
 
-export const errorHandler = (event: SystemError) => {
-
+export const errorHandler = (error: SystemError) => {
+	console.log(error);
 }

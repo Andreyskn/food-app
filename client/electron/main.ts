@@ -1,24 +1,30 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import * as io from 'socket.io-client';
+import SocketIOClient from 'socket.io-client';
 import { AppState } from '../src/store';
+import { ClientSocket } from '../../shared';
+
+export type Socket = Omit<SocketIOClient.Socket, 'on' | 'emit'> & ClientSocket;
+
+const userId = process.env.APP_USER_ID!;
+
+const usersData = {
+	2: { id: '2', firstName: 'Юлия', lastName: 'Митина', image: '/images/avatars/2.png' },
+	3: { id: '3', firstName: 'Андрей', lastName: 'Скипин', image: '/images/avatars/3.png' },
+	6: { id: '6', firstName: 'Константин', lastName: 'Кузьмин', image: '/images/avatars/6.png' },
+}
 
 let win: any;
-let socket = io.connect('http://localhost:3000', { query: 'userId=3' });
+let socket: Socket = SocketIOClient.connect('http://localhost:3000', { query: `userId=${userId}` });
 let state: AppState = {
-	user: {
-		id: '3',
-		firstName: 'Андрей',
-		lastName: 'Скипин',
-		image: '/images/avatars/3.png',
-	},
+	user: usersData[userId],
 	restaurants: [],
 	activeOrder: null,
 };
 
 const createWindow = () => {
 	win = new BrowserWindow({
-		width: 1400,
-		height: 800,
+		width: 1000,
+		height: 700,
 		webPreferences: {
 			nodeIntegration: true,
 		},
@@ -42,15 +48,15 @@ const updateState = (data: any) => {
 	syncState();
 }
 
-socket.on('restaurant-list', (restaurants) => updateState({ restaurants }));
-socket.on('active-order', (activeOrder) => updateState({ activeOrder }));
+socket.on('Active order exists', (activeOrder) => updateState({ activeOrder }));
+socket.on('Active order absent', (restaurants) => updateState({ restaurants }));
+socket.on('Order created', (activeOrder) => updateState({ activeOrder }));
 
 ipcMain.on('ready-to-render', (e) => {
 	const initialRoute = state.activeOrder ? 'OrderStarted' : 'Home';
 	e.returnValue = [state, initialRoute];
-	socket.emit('current view: Home');
 });
 
 ipcMain.on('select-restaurant', (_, restaurantId) => {
-	socket.emit('Restaurant chosen', restaurantId);
+	socket.emit('Restaurant chosen', { restaurantId });
 });

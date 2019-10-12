@@ -19,5 +19,5 @@ domain$.subscribe({
 });
 
 error$.subscribe({
-	next: event => errorHandler(event),
+	error: error => errorHandler(error),
 });

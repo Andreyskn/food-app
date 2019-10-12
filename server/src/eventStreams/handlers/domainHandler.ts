@@ -18,6 +18,7 @@ export const domainHandler = (event: UserSocketEvent) => {
 		}
 	
 		default:
+			// const unhandled: never = event.name;
 			console.log(`Unhandled domain event: [ ${event.name} ]`);
 			break;
 	}
@@ -29,7 +30,7 @@ const handleResult = (result: Result) => {
 			response$.next({ name: result.name, payload: result.payload });
 			break;
 		case 'error':
-			error$.next({ name: result.name, payload: result.payload });
+			error$.error({ name: result.name, payload: result.payload });
 			break;
 	}
 }

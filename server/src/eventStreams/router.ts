@@ -1,6 +1,7 @@
 import { response$, domain$ } from './streams';
+import { SocketEvent } from '../socket';
 
-export const eventRouter = (event: any) => {
+export const eventRouter = (event: SocketEvent) => {
 	switch (event.name) {
 		case 'User connected':
 			response$.next(event);

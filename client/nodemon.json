@@ -1,0 +1,9 @@
+{
+	"env": {
+		"APP_USER_ID": "3"
+	},
+	"watch": [
+		"electron/main.ts"
+	],
+	"exec": "electron ./electron/"
+}

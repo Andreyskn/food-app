@@ -7,7 +7,7 @@ type Event<N, P> = {
 export type OrderCreated = Event<
 	'Order created',
 	{
-		order: import('../order').OrderState;
+		order: import('../order').OrderSelection;
 		users: import('../users').UsersState;
 	}
 >

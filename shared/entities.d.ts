@@ -6,7 +6,8 @@ export type User = {
 }
 
 export type Participant = User & {
-	bill: number;
+	bill?: number;
+	status: 'selecting' | 'confirmed';
 }
 
 export type Restaurant = {
@@ -25,9 +26,9 @@ export type Restaurant = {
 
 export type Order = {
 	restaurant: Restaurant;
-	status: 'new' | 'delivery' | 'done';
+	status: 'selection' | 'delivery' | 'payment';
 	orderEndTime: number; // timestamp
 	deliveryEndTime?: number; // timestamp
 	participants: Participant[];
-	initiator?: User;
+	initiator: User;
 }

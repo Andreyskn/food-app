@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { routes, RouteName } from './routes';
 
-export type RouterContextType = {
+export type RouterContext = {
 	goBack: () => void;
 	navigateTo: (route: RouteName) => void;
 }

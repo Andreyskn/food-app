@@ -1,9 +1,11 @@
 {
 	"env": {
-		"APP_USER_ID": "2"
+		"APP_USER_ID": "2",
+		"NODE_ENV": "development"
 	},
 	"watch": [
-		"electron/main.ts"
+		"electron"
 	],
+	"ext": "js,ts",
 	"exec": "electron ./electron/"
 }

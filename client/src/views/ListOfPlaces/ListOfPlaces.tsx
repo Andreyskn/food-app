@@ -6,18 +6,16 @@ import { RestaurantTile } from './RestaurantTile';
 import { AppContext } from 'alias/app';
 import { useModal } from './Modal';
 
-import { ipcRenderer as ipc } from 'electron';
-
 const [viewBlock, , viewElement] = useBEM('list-of-places');
 const [tileListElement] = viewElement('tile-list');
 
-const onSelect = (restaurantId: string) => () => ipc.send('select-restaurant', restaurantId);
-
 export const ListOfPlaces: React.FC = () => {
-	const { restaurants } = useContext(AppContext);
+	const { restaurants, ipc } = useContext(AppContext);
 	if (!restaurants) return null;
 	
 	const { Modal, showModal } = useModal();
+
+	const onSelect = (restaurantId: string) => () => ipc.send('SELECT_RESTAURANT', restaurantId);
 
 	return (
 		<div className={viewBlock}>

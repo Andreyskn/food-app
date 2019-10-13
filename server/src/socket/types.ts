@@ -1,7 +1,7 @@
 import SocketIO from 'socket.io';
 import {
 	ServerSocket, ClientSocketEvent, Event,
-	ActiveOrderExists, ActiveOrderAbsent, ServerSocketEvent,
+	SocketConnected, ServerSocketEvent,
 } from '../../../shared';
 
 export type Socket = Omit<SocketIO.Socket, 'on' | 'emit'> & ServerSocket;
@@ -35,12 +35,10 @@ export type GlobalResponseData = {
 	type: 'global',
 }
 
-export type OrderExistsResponse = ActiveOrderExists & TargetResponseData;
+export type SocketConnectedResponse = SocketConnected & TargetResponseData;
 
-export type OrderAbsentResponse = ActiveOrderAbsent & TargetResponseData;
+export type TargetResponse = SocketConnectedResponse;
 
-export type TargetResponse = OrderExistsResponse | OrderAbsentResponse;
-
-export type GlobalResponse = Exclude<ServerSocketEvent, ActiveOrderExists | ActiveOrderAbsent> & GlobalResponseData;
+export type GlobalResponse = Exclude<ServerSocketEvent, SocketConnected> & GlobalResponseData;
 
 export type SocketResponse = GlobalResponse | TargetResponse;

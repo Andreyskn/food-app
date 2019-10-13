@@ -4,4 +4,4 @@ require('ts-node').register({
 		esModuleInterop: true,
 	},
 });
-require('./main.ts');
+require('./src/main.ts');

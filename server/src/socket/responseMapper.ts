@@ -1,6 +1,6 @@
 import { db } from '../fakeDB';
 import { ResponseEvent } from '../eventStreams';
-import { SocketResponse, OrderAbsentResponse, OrderExistsResponse } from './types';
+import { SocketResponse, SocketConnectedResponse } from './types';
 import { Order, Participant } from '../../../shared';
 
 let activeOrder: Order | null = null;
@@ -9,26 +9,16 @@ export const responseMapper = (event: ResponseEvent): SocketResponse => {
 	switch (event.name) {
 		case 'User connected': {
 			const { socketId } = event.payload;
-			let response: OrderAbsentResponse | OrderExistsResponse;
+			const payload: SocketConnectedResponse['payload'] = activeOrder
+				? { type: 'order', order: activeOrder }
+				: { type: 'restaurants', restaurants: db.restaurants() }
 
-			if (activeOrder) {
-				response = {
-					type: 'target',
-					name: 'Active order exists',
-					payload: activeOrder,
-					targetSocket: socketId,
-				}
+			return {
+				type: 'target',
+				name: 'Connected to server',
+				payload,
+				targetSocket: socketId,
 			}
-			else {
-				response = {
-					type: 'target',
-					name: 'Active order absent',
-					payload: db.restaurants(),
-					targetSocket: socketId,
-				}
-			}
-
-			return response;
 		}
 
 		case 'Order created': {

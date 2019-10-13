@@ -14,7 +14,7 @@
 
 		"noImplicitReturns": true,
 		"noImplicitThis": true,
-		// "noImplicitAny": true,
+		"noImplicitAny": true,
 		"noUnusedLocals": true,
 		"strictNullChecks": true,
 
@@ -32,19 +32,20 @@
 			"alias/router": [
 				"src/router"
 			],
-			"alias/store": [
-				"src/store"
-			],
 			"alias/app": [
-				"src/"
+				"src/app"
 			],
 			"alias/shared": [
 				"../shared"
+			],
+			"alias/electron": [
+				"./electron/src"
 			]
 		}
 	},
 	"include": [
-		"./src/**/*"
+		"./src/**/*",
+		"./electron/**/*"
 	],
 	"exclude": [
 		"node_modules"

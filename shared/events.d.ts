@@ -1,18 +1,19 @@
 import { Restaurant, Order } from './entities';
 
-export type Event<N, P> = {
+export type Event<N, P = undefined> = {
 	name: N;
 	payload: P;
 }
 
-export type ActiveOrderExists = Event<
-	'Active order exists',
-	Order
->
-
-export type ActiveOrderAbsent = Event<
-	'Active order absent',
-	Restaurant[]
+export type SocketConnected = Event<
+	'Connected to server',
+	{
+		type: 'order';
+		order: Order;
+	} | {
+		type: 'restaurants';
+		restaurants: Restaurant[];
+	}
 >
 
 export type OrderCreated = Event<
@@ -21,14 +22,13 @@ export type OrderCreated = Event<
 >
 
 export type ServerSocketEvent =
-	| ActiveOrderExists
-	| ActiveOrderAbsent
+	| SocketConnected
 	| OrderCreated
 
 export type ServerSocket = {
-	emit(event: ActiveOrderExists['name'], payload: ActiveOrderExists['payload']): void;
-	emit(event: ActiveOrderAbsent['name'], payload: ActiveOrderAbsent['payload']): void;
+	emit(event: SocketConnected['name'], payload: SocketConnected['payload']): void;
 	emit(event: OrderCreated['name'], payload: OrderCreated['payload']): void;
+
 	on(event: ClientSocketEvent['name'], callback: (payload: ClientSocketEvent['payload']) => any): void;
 }
 
@@ -38,8 +38,7 @@ export type RestaurantChosen = Event<
 >
 
 export type OrderRejected = Event<
-	'Order rejected',
-	undefined
+	'Order rejected'
 >
 
 export type ClientSocketEvent =
@@ -49,7 +48,7 @@ export type ClientSocketEvent =
 export type ClientSocket = {
 	emit(event: RestaurantChosen['name'], payload: RestaurantChosen['payload']): void;
 	emit(event: OrderRejected['name']): void;
-	on(event: ActiveOrderExists['name'], callback: (payload: ActiveOrderExists['payload']) => any): void;
-	on(event: ActiveOrderAbsent['name'], callback: (payload: ActiveOrderAbsent['payload']) => any): void;
+
+	on(event: SocketConnected['name'], callback: (payload: SocketConnected['payload']) => any): void;
 	on(event: OrderCreated['name'], callback: (payload: OrderCreated['payload']) => any): void;
 }

@@ -1,1 +1,1 @@
-export * from './ipc';
+export { IpcRenderer } from './ipc';

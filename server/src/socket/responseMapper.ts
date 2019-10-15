@@ -26,10 +26,10 @@ export const responseMapper = (event: ResponseEvent): SocketResponse => {
 
 			activeOrder = {
 				status: order.status,
-				initiator: db.user(order.host),
+				host: db.user(order.host),
 				restaurant: db.restaurant(order.restaurant),
 				participants: order.participants.map(id => ({ ...db.user(id), status: users[id].status as Participant['status'] })),
-				orderEndTime: order.selectionEndsAt,
+				selectionEndsAt: order.selectionEndsAt,
 			}
 
 			return {

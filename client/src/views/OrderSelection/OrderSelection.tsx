@@ -48,7 +48,7 @@ export const OrderSelection: React.FC = () => {
 						Мой заказ
 					</Caption>
 					<Caption align='right' weight='medium' size='large' color='accent' subtitle={{ text: 'До конца' }}>
-						<Timer timeUntil='orderEnd' />
+						<Timer timeUntil='selectionEnd' />
 					</Caption>
 				</div>
 

@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { routes, RouteName } from './routes';
 
+export type GoBack = () => void;
+export type NavigateTo = (route: RouteName) => void;
+
 export type RouterContext = {
-	goBack: () => void;
-	navigateTo: (route: RouteName) => void;
+	goBack: GoBack;
+	navigateTo: NavigateTo;
 }
 
 export const useRouter = (initialRoute: RouteName) => {
@@ -21,6 +24,8 @@ export const useRouter = (initialRoute: RouteName) => {
 	}
 
 	const navigateTo = (route: RouteName) => {
+		if (route === currentRoute) return;
+
 		setRoute(route);
 		setHistory([...history, currentRoute]);
 	}

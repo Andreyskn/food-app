@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+
 import '../styles/index.scss';
 
 import { noop } from 'alias/utils';
@@ -18,15 +19,15 @@ export const AppContext = React.createContext<AppContextType>({
 
 export const runApp = (initialState: AppState, initialRoute: RouteName) => {
 	const App: React.FC = () => {
-		const { Router, ...routerActions } = useRouter(initialRoute);
-		const [state, setState] = useState<AppState>(initialState)
+		const { Router, goBack, navigateTo } = useRouter(initialRoute);
+		const [state, setState] = useState<AppState>(initialState);
 
 		useEffect(() => {
-			runIpcListener(setState);
+			runIpcListener(setState, navigateTo);
 		}, []);
 
 		return (
-			<AppContext.Provider value={{ ...state, ...routerActions, ipc }}>
+			<AppContext.Provider value={{ ...state, goBack, navigateTo, ipc }}>
 				<Router />
 			</AppContext.Provider>
 		)

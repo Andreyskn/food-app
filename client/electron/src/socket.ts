@@ -3,7 +3,7 @@ import SocketIOClient from 'socket.io-client';
 import { USER_ID } from './config';
 
 import { ClientSocket } from 'alias/shared';
-import { dispatch, action } from './store';
+import { dispatch, action, createOrder } from './store';
 
 type Socket = Omit<SocketIOClient.Socket, 'on' | 'emit'> & ClientSocket;
 
@@ -20,5 +20,5 @@ socket.on('Connected to server', (payload) => {
 	}
 });
 socket.on('Order created', (activeOrder) => {
-	dispatch(action('UPDATE_ORDER', activeOrder));
+	dispatch(createOrder(activeOrder));
 });

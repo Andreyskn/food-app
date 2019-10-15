@@ -25,10 +25,12 @@ export type Restaurant = {
 }
 
 export type Order = {
-	restaurant: Restaurant;
 	status: 'selection' | 'delivery' | 'payment';
-	orderEndTime: number; // timestamp
-	deliveryEndTime?: number; // timestamp
+
+	host: User;
+	restaurant: Restaurant;
+
 	participants: Participant[];
-	initiator: User;
+	selectionEndsAt: number; // timestamp
+	deliveryExpectedAt?: number; // timestamp
 }

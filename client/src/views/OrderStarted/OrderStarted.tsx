@@ -17,7 +17,7 @@ export const OrderStarted: React.FC = () => {
 					Новый заказ!
 				</Caption>
 				<Caption align='right' weight='medium' size='large' color='contrast' subtitle={{ text: 'До конца' }}>
-					<Timer timeUntil='orderEnd' />
+					<Timer timeUntil='selectionEnd' />
 				</Caption>
 			</div>
 

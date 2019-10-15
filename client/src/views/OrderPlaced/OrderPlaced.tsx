@@ -21,7 +21,7 @@ export const OrderPlaced: React.FC = () => {
 				</Tile>
 				<Tile background='contrast'>
 					<Caption color='accent' weight='light' align='center'>
-						<Timer timeUntil='orderEnd' />
+						<Timer timeUntil='selectionEnd' />
 					</Caption>
 				</Tile>
 				<Tile background='contrast'>
@@ -29,7 +29,7 @@ export const OrderPlaced: React.FC = () => {
 				</Tile>
 			</TileSet>
 
-			{user.isInitiator && (
+			{user.status === 'host' && (
 				<div className='actions'>
 					<Button text='Детали заказа' onClick={() => navigateTo('Waiting')} />
 				</div>

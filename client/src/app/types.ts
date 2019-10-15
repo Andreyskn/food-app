@@ -4,10 +4,8 @@ import { RouterContext } from 'alias/router';
 import { IpcContext } from '../ipc';
 
 export type AppUser = User & {
+	status: 'idle' | 'host' | 'joined' | 'declined';
 	bill?: number;
-	isInitiator?: boolean;
-	hasJoined?: boolean;
-	hasDeclined?: boolean;
 }
 
 export type AppState = {

@@ -1,7 +1,10 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 
+import { AppState } from 'alias/app';
 import { reducer } from './reducer';
+import { Action } from './actions';
 
-export const store = createStore(reducer);
+export const store = createStore(reducer, applyMiddleware(thunk));
 
-export const dispatch = store.dispatch;
+export const dispatch: ThunkDispatch<AppState, undefined, Action> = store.dispatch;

@@ -11,7 +11,9 @@ type ModalBaseProps = {
 	onClose: () => void;
 }
 
-export type ModalProps = Required<Omit<ModalBaseProps, 'open' | 'onClose'>>;
+export type ModalProps =
+	& Required<Pick<ModalBaseProps, 'logo' | 'text' | 'onSelect'>>
+	& Pick<ModalBaseProps, 'background'>;
 
 export const useModal = () => {
 	const [state, setState] = useState<Omit<ModalBaseProps, 'onClose'>>({ open: false });

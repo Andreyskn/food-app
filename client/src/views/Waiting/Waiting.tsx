@@ -31,7 +31,7 @@ export const Waiting: React.FC = () => {
 				</Tile>
 			</TileSet>
 
-			{user.isInitiator && (
+			{user.status === 'host' && (
 				<div className='actions'>
 					<Button text='Доставлено!' onClick={() => navigateTo('Delivered')} />
 				</div>

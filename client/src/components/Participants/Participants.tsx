@@ -5,7 +5,8 @@ import { Image, ImageProps, Caption, CaptionProps } from 'alias/components';
 import { useBEM } from 'alias/utils';
 import { AppContext } from 'alias/app';
 
-type GallerySlots = 'left' | 'middle' | 'right';
+type GallerySlot = 'left' | 'middle' | 'right';
+type Gallery = Record<GallerySlot, JSX.Element[]>;
 
 const [participantsBlock, , participantsElement] = useBEM('participants');
 const [galleryElement, galleryModifier] = participantsElement('gallery');
@@ -15,36 +16,43 @@ const makeImage = (src: ImageProps['src'], key: React.Key) => <Image rounded key
 
 export const Participants: React.FC = () => {
 	const { user, activeOrder } = useContext(AppContext);
-	const { participants, initiator } = activeOrder!;
+	const { participants, host } = activeOrder!;
 
-	const gallery: { [key in GallerySlots]: JSX.Element[] } = { left: [], middle: [], right: [] };
+	const gallery: Gallery = { left: [], middle: [], right: [] };
 
-	if (user.isInitiator) gallery.middle.push(makeImage(user.image, 0));
+	if (user.status === 'host') {
+		gallery.middle.push(makeImage(user.image, 0));
+	}
 	else {
-		gallery.middle.unshift(makeImage(initiator!.image, 0));
-		user.hasJoined && gallery.middle.push(makeImage(user.image, 1));
+		gallery.middle.unshift(makeImage(host.image, 0));
+
+		if (user.status === 'joined') {
+			gallery.middle.push(makeImage(user.image, 1));
+		}
 	}
 
 	participants.forEach((p, i) => {
+		if (p.id === user.id) return;
+
 		const image = makeImage(p.image, i);
 		gallery.right.length > gallery.left.length ? gallery.left.push(image) : gallery.right.push(image);
 	});
 
-	const getGallerySlotClass = (slot: GallerySlots) => classnames(gallerySlotElement, gallerySlotModifier(slot));
+	const getGallerySlotClass = (slot: GallerySlot) => classnames(gallerySlotElement, gallerySlotModifier(slot));
 
 	const galleryClassName = classnames(
 		galleryElement,
-		{ [galleryModifier('duet')]: user.hasJoined },
+		{ [galleryModifier('duet')]: user.status === 'joined' },
 	)
 
-	const title = user.isInitiator ? 'Ты' : <Fragment>{initiator!.firstName} <em>{initiator!.lastName}</em></Fragment>;
+	const title = user.status === 'host' ? 'Ты' : <Fragment>{host.firstName} <em>{host.lastName}</em></Fragment>;
 	const subtitle = {
-		text: `+${participants.length} голодающих ${user.hasJoined ? 'и ты' : ''}`,
+		text: `+${participants.length} голодающих ${user.status === 'joined' ? 'и ты' : ''}`,
 	}
 
 	const captionProps: CaptionProps = {
 		align: 'center',
-		color: user.isInitiator ? 'accent' : 'default',
+		color: user.status === 'host' ? 'accent' : 'default',
 		size: 'small',
 		subtitle,
 	}

@@ -10,11 +10,11 @@ const [viewBlock, viewModifier] = useBEM('delivered');
 
 export const Delivered: React.FC = () => {
 	const { user, activeOrder } = useContext(AppContext);
-	const { initiator } = activeOrder!;
+	const { host } = activeOrder!;
 
 	const viewClassName = classnames(
 		viewBlock,
-		{ [viewModifier('participant')]: !user.isInitiator },
+		{ [viewModifier('participant')]: user.status !== 'host' },
 	)
 
 	return (
@@ -26,7 +26,7 @@ export const Delivered: React.FC = () => {
 				<Icon name='truck-delivered' />
 			</div>
 
-			{user.isInitiator ? (
+			{user.status === 'host' ? (
 				<TileSet direction='column'>
 					<Tile background='contrast'>
 						<Bill />
@@ -36,8 +36,8 @@ export const Delivered: React.FC = () => {
 				<TileSet direction='column'>
 					<Tile background='contrast'>
 						<Text>Не забудь!</Text>
-						<Image src={initiator!.image} rounded />
-						<Caption>{initiator!.firstName} <em>{initiator!.lastName}</em></Caption>
+						<Image src={host.image} rounded />
+						<Caption>{host.firstName} <em>{host.lastName}</em></Caption>
 					</Tile>
 					<Tile background='glassy'>
 						<Caption align='center' color='contrast' weight='light'>{price(user.bill!)}</Caption>
@@ -45,7 +45,7 @@ export const Delivered: React.FC = () => {
 				</TileSet>
 			)}
 
-			{user.isInitiator && (
+			{user.status === 'host' && (
 				<div className='actions'>
 					<Button text='Все рассчитались' />
 				</div>

@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "immutable": "^4.0.0-rc.12",
     "rxjs": "^6.5.3",
     "socket.io": "^2.2.0"
   },

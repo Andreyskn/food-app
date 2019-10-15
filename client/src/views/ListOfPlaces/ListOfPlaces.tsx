@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
+
 import './listOfPlaces.scss';
+
+import { Restaurant } from 'alias/shared';
 import { useBEM } from 'alias/utils';
 import { Caption } from 'alias/components';
 import { RestaurantTile } from './RestaurantTile';
@@ -11,11 +14,9 @@ const [tileListElement] = viewElement('tile-list');
 
 export const ListOfPlaces: React.FC = () => {
 	const { restaurants, ipc } = useContext(AppContext);
-	if (!restaurants) return null;
-	
 	const { Modal, showModal } = useModal();
 
-	const onSelect = (restaurantId: string) => () => ipc.send('SELECT_RESTAURANT', restaurantId);
+	const onSelect = (restaurantId: Restaurant['id']) => () => ipc.send('SELECT_RESTAURANT', restaurantId);
 
 	return (
 		<div className={viewBlock}>
@@ -24,14 +25,14 @@ export const ListOfPlaces: React.FC = () => {
 				{/* <Button text='Добавить' background='accent' icon={{ name: 'plus' }} autoWidth /> */}
 			</div>
 			<div className={tileListElement}>
-				{restaurants.map((props: any, i: any) => {
+				{restaurants.map((restaurant, i) => {
 					const onClick = () => showModal({
-						text: props.name,
-						logo: props.logo,
-						background: props.backgroundColor!, // FIXME:
-						onSelect: onSelect(props.id),
+						text: restaurant.name,
+						logo: restaurant.logo,
+						background: restaurant.backgroundColor,
+						onSelect: onSelect(restaurant.id),
 					});
-					return <RestaurantTile key={i} {...props} onClick={onClick} />
+					return <RestaurantTile key={i} {...restaurant} onClick={onClick} />
 				})}
 			</div>
 			<Modal />

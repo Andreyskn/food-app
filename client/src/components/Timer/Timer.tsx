@@ -6,16 +6,16 @@ import { AppContext } from 'alias/app';
 const [timerBlock] = useBEM('timer');
 
 export type TimerProps = {
-	timeUntil: 'orderEnd' | 'delivery';
+	timeUntil: 'selectionEnd' | 'delivery';
 }
 
 export const Timer: React.FC<TimerProps> = (props) => {
 	const { timeUntil } = props;
 	const [, forceUpdate] = useState();
 	const { activeOrder } = useContext(AppContext);
-	const { orderEndTime, deliveryEndTime } = activeOrder!;
+	const { selectionEndsAt, deliveryExpectedAt } = activeOrder!;
 
-	const deadline = timeUntil === 'orderEnd' ? orderEndTime : deliveryEndTime;
+	const deadline = timeUntil === 'selectionEnd' ? selectionEndsAt : deliveryExpectedAt;
 
 	if (!deadline) return null;
 

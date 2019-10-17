@@ -1,12 +1,20 @@
 import { Dispatch, SetStateAction } from 'react';
-import { User, Restaurant, Order } from 'alias/shared';
+import {
+	User, Restaurant, Order,
+	UserIdleData, UserSelectingData, UserOrderedData, UserDeclinedData,
+} from 'alias/shared';
 import { RouterContext } from 'alias/router';
 import { IpcContext } from '../ipc';
 
-export type AppUser = User & {
-	status: 'idle' | 'host' | 'joined' | 'declined';
-	bill?: number;
-}
+export type UserIdle = User & UserIdleData;
+
+export type UserSelecting = User & UserSelectingData;
+
+export type UserOrdered = User & UserOrderedData;
+
+export type UserDeclined = User & UserDeclinedData;
+
+export type AppUser = UserIdle | UserSelecting | UserOrdered | UserDeclined;
 
 export type AppState = {
 	user: AppUser;

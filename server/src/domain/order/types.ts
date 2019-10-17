@@ -1,6 +1,7 @@
+import { UserId } from '../users';
+
 export type Timestamp = number;
 export type RestaurantId = string;
-export type UserId = import('../users').UserId;
 
 export type OrderData = {
 	restaurant: RestaurantId;
@@ -30,4 +31,7 @@ export type OrderFinished = OrderData & {
 	status: 'finished';
 }
 
-export type OrderState = OrderIdle | OrderSelection | OrderDelivery | OrderPayment | OrderFinished;
+export type OrderActive = OrderSelection | OrderDelivery | OrderPayment;
+
+export type OrderState = OrderIdle | OrderActive | OrderFinished;
+

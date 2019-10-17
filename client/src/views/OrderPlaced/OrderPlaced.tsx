@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import './orderPlaced.scss';
 import { useBEM } from 'alias/utils';
 import { ChosenPlace, Button, Caption, TileSet, Tile, Timer, Participants } from 'alias/components';
-import { AppContext } from 'alias/app';
+import { AppContext, UserOrdered } from 'alias/app';
 
 const [viewBlock] = useBEM('order-placed');
 
 export const OrderPlaced: React.FC = () => {
-	const { navigateTo, user } = useContext(AppContext);
+	const { navigateTo, user: appUser } = useContext(AppContext);
+	const user = appUser as UserOrdered;
 
 	return (
 		<div className={viewBlock}>
@@ -29,7 +30,7 @@ export const OrderPlaced: React.FC = () => {
 				</Tile>
 			</TileSet>
 
-			{user.status === 'host' && (
+			{user.isHost && (
 				<div className='actions'>
 					<Button text='Детали заказа' onClick={() => navigateTo('Waiting')} />
 				</div>

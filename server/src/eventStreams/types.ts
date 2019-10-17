@@ -1,7 +1,7 @@
-export type DomainEvent = Omit<import('../domain').Event, 'type'>;
+import { SystemSocketEvent } from '../socket';
+import { DomainEvent } from '../domain';
+import { Order } from '../../../shared';
 
-export type DomainError = Omit<import('../domain').Error, 'type'>;
+export type DataDomainEvent = Omit<DomainEvent, 'type' | 'payload'> & { payload: Order };
 
-export type SystemError = DomainError;
-
-export type ResponseEvent = DomainEvent | import('../socket').UserConnectedEvent;
+export type ResponseEvent = DataDomainEvent | SystemSocketEvent;

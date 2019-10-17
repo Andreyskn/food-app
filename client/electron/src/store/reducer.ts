@@ -19,32 +19,53 @@ const initialState: AppState = {
 
 export const reducer: Reducer<AppState, Action> = (state = initialState, action) => {
 	switch (action.type) {
-		case 'UPDATE_ORDER': {
-			const order = action.payload;
-			const { user } = state;
-			let userStatus = user.status;
+		case 'HYDRATE_STORE': {
+			const { order, userData } = action.payload;
 
-			if (user.id === order.host.id) {
-				userStatus = 'host';
+			return {
+				...state,
+				activeOrder: order,
+				user: { ...state.user, ...userData }
 			}
-			else if (order.participants.find(p => p.id === user.id)) {
-				userStatus = 'joined';
+		}
+
+		case 'CREATE_ORDER': {
+			const order = action.payload;
+			let user = state.user;
+
+			if (state.user.id === order.host.id) {
+				user = {
+					...state.user,
+					status: 'selecting',
+					isHost: true,
+				};
 			}
 
 			return {
 				...state,
-				user: {
-					...state.user,
-					status: userStatus,
-				},
+				user,
 				activeOrder: action.payload
 			};
 		}
+
+		case 'SET_DECLINED_STATUS':
+			return {
+				...state,
+				user: {
+					...state.user,
+					status: 'declined',
+				}
+			}
+
+		case 'UPDATE_ORDER':
+			return { ...state, activeOrder: action.payload };
 
 		case 'UPDATE_RESTAURANTS':
 			return { ...state, restaurants: action.payload };
 	
 		default:
+			const unhandled: never = action;
+			console.log(`Unhandled action: ${JSON.stringify(unhandled)}`);
 			return state;
 	}
 }

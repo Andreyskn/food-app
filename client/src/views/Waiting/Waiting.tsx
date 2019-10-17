@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import './waiting.scss';
 import { useBEM } from 'alias/utils';
 import { ChosenPlace, Button, Caption, TileSet, Tile, Timer, Icon } from 'alias/components';
-import { AppContext } from 'alias/app';
+import { AppContext, UserOrdered } from 'alias/app';
 
 const [viewBlock] = useBEM('waiting');
 
 export const Waiting: React.FC = () => {
-	const { navigateTo, user } = useContext(AppContext);
+	const { navigateTo, user: appUser } = useContext(AppContext);
+	const user = appUser as UserOrdered;	
 
 	return (
 		<div className={viewBlock}>
@@ -31,7 +32,7 @@ export const Waiting: React.FC = () => {
 				</Tile>
 			</TileSet>
 
-			{user.status === 'host' && (
+			{user.isHost && (
 				<div className='actions'>
 					<Button text='Доставлено!' onClick={() => navigateTo('Delivered')} />
 				</div>

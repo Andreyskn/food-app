@@ -7,8 +7,10 @@ import { AppContext } from 'alias/app';
 const [viewBlock] = useBEM('order-started');
 
 export const OrderStarted: React.FC = () => {
-	const { navigateTo, activeOrder } = useContext(AppContext);
+	const { activeOrder, ipc } = useContext(AppContext);
 	const { restaurant: { averagePrice, deliveryTime } } = activeOrder!;
+
+	const onDecline = () => ipc.send('DECLINE_ORDER');
 
 	return (
 		<div className={viewBlock}>
@@ -44,7 +46,7 @@ export const OrderStarted: React.FC = () => {
 
 			<div className='actions'>
 				<Button text='Я тоже хочу есть!' />
-				<Button background='glassy' text='Не сегодня...' onClick={() => navigateTo('Declined')} />
+				<Button background='glassy' text='Не сегодня...' onClick={onDecline} />
 			</div>
 		</div>
 	)

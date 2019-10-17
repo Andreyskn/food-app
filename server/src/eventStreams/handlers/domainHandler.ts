@@ -1,11 +1,26 @@
 import { response$, error$ } from '../streams';
-import { domain, Result } from '../../domain';
+import { domain, DomainResult, DomainCommand } from '../../domain';
 import { UserSocketEvent } from '../../socket';
+import { updateCache } from '../../repository';
+
+const executeCommand = (command: DomainCommand) => handleResult(domain.dispatch(command));
+
+const handleResult = (result: DomainResult) => {
+	switch (result.type) {
+		case 'event':
+			const cache = updateCache(result.payload);
+			response$.next({ ...result, payload: cache.order });
+			break;
+		case 'error':
+			error$.next(result.error);
+			break;
+	}
+}
 
 export const domainHandler = (event: UserSocketEvent) => {
 	switch (event.name) {
 		case 'Restaurant chosen': {
-			const result = domain.dispatch({
+			executeCommand({
 				name: 'Create order',
 				payload: {
 					hostId: event.userId,
@@ -13,24 +28,21 @@ export const domainHandler = (event: UserSocketEvent) => {
 					timestamp: event.timestamp,
 				}
 			});
-			handleResult(result);
 			break;
 		}
-	
-		default:
-			// const unhandled: never = event.name;
-			console.log(`Unhandled domain event: [ ${event.name} ]`);
-			break;
-	}
-}
 
-const handleResult = (result: Result) => {
-	switch (result.type) {
-		case 'event':
-			response$.next({ name: result.name, payload: result.payload });
+		case 'Order declined': {
+			executeCommand({
+				name: 'Set user declined status',
+				payload: event.userId,
+			});
 			break;
-		case 'error':
-			error$.error({ name: result.name, payload: result.payload });
+		}
+
+		default: {
+			const unhandled: never = event;
+			error$.next(new Error(`Unhandled event: ${unhandled}`));
 			break;
+		}
 	}
 }

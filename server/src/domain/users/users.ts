@@ -9,5 +9,12 @@ export const users = {
 			id,
 		}
 		return state;
+	},
+	setDeclinedStatus: (id: UserId) => {
+		state[id] = {
+			status: 'declined',
+			id,
+		}
+		return state;
 	}
 }

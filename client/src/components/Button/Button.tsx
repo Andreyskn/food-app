@@ -28,10 +28,12 @@ export const Button: React.FC<ButtonProps> = (props) => {
 	const { isDefaultProp } = useProps(props, Button.defaultProps!);
 	const buttonClass = classnames(
 		buttonBlock,
-		{ [buttonModifier({ background })]: !isDefaultProp('background') },
-		{ [buttonModifier('width-auto')]: autoWidth },
-		{ [buttonModifier('custom')]: children },
-		{ [buttonModifier('rounded')]: rounded },
+		{
+			[buttonModifier({ background })]: !isDefaultProp('background'),
+			[buttonModifier('width-auto')]: autoWidth,
+			[buttonModifier('custom')]: children,
+			[buttonModifier('rounded')]: rounded,
+		},
 	);
 
 	return (

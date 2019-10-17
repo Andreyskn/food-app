@@ -12,7 +12,7 @@ export const socket: Socket = SocketIOClient.connect('http://localhost:3000', { 
 socket.on('Connected to server', (payload) => {
 	switch (payload.type) {
 		case 'order':
-			dispatch(action('UPDATE_ORDER', payload.order));
+			dispatch(action('HYDRATE_STORE', payload));
 			break;
 		case 'restaurants':
 			dispatch(action('UPDATE_RESTAURANTS', payload.restaurants));

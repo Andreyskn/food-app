@@ -11,12 +11,12 @@ export type UserSelecting = {
 	id: UserId;
 }
 
-export type UserConfirmed = {
-	status: 'confirmed';
+export type UserOrdered = {
+	status: 'ordered';
 	id: UserId;
 	order: UserOrder;
 }
 
-export type User = UserDeclined | UserSelecting | UserConfirmed;
+export type User = UserDeclined | UserSelecting | UserOrdered;
 
 export type UsersState = Record<UserId, User>;

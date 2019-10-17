@@ -1,9 +1,9 @@
 import SocketIO from 'socket.io';
 import { merge } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Socket, SocketResponse } from './types';
-import { response$, request$ } from '../eventStreams';
+import { response$, domain$ } from '../eventStreams';
 import { responseMapper } from './responseMapper';
 import { createSocketEvent, createSocketEventStream } from './helpers';
 
@@ -15,9 +15,13 @@ export const runSocket = (io: SocketIO.Server) => {
 		.subscribe({
 			next: (res: SocketResponse) => {
 				switch (res.type) {
-					case 'global':
+					case 'none': break;
+
+					case 'global': {
 						io.emit(res.name, res.payload);
 						break;
+					}
+
 					case 'target': {
 						const targetSocket = io.sockets.connected[res.targetSocket];
 						targetSocket.emit(res.name, res.payload);
@@ -31,13 +35,10 @@ export const runSocket = (io: SocketIO.Server) => {
 const socketHandler = (socket: Socket) => {
 	const fromEvent = createSocketEventStream(socket);
 
+	response$.next(createSocketEvent(socket, 'User connected', { socketId: socket.id }));
+
 	merge(
-		fromEvent('Restaurant chosen')
-	)
-		.pipe(
-			startWith(
-				createSocketEvent(socket, 'User connected', { socketId: socket.id })
-			)
-		)
-		.subscribe(request$);
+		fromEvent('Restaurant chosen'),
+		fromEvent('Order declined'),
+	).subscribe(domain$);
 }

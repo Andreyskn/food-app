@@ -45,7 +45,7 @@ export const Participants: React.FC = () => {
 
 	const title = userIsHost ? 'Ты' : <Fragment>{host.firstName} <em>{host.lastName}</em></Fragment>;
 	const subtitle = {
-		text: `+${participants.length} голодающих ${userIsParticipant ? 'и ты' : ''}`,
+		text: `+${participants.length} ${participants.length === 1 ? 'голодающий' : 'голодающих'} ${userIsParticipant ? 'и ты' : ''}`,
 	}
 
 	const captionProps: CaptionProps = {

@@ -24,7 +24,7 @@ export const runSocket = (io: SocketIO.Server) => {
 
 					case 'target': {
 						const targetSocket = io.sockets.connected[res.targetSocket];
-						targetSocket.emit(res.name, res.payload);
+						targetSocket && targetSocket.emit(res.name, res.payload);
 						break;
 					}
 				}
@@ -40,5 +40,6 @@ const socketHandler = (socket: Socket) => {
 	merge(
 		fromEvent('Restaurant chosen'),
 		fromEvent('Order declined'),
+		fromEvent('User joined'),
 	).subscribe(domain$);
 }

@@ -9,5 +9,5 @@ export const ipc: IpcRenderer = ipcRenderer;
 
 export const runIpcListener = (setState: SetAppState, navigateTo: NavigateTo) => {
 	ipc.on('UPDATE_STATE', (_, state) => setState(state));
-	ipc.on('CHANGE_VIEW', (_, routeName) => navigateTo(routeName));
+	ipc.on('NAVIGATE_TO', (_, routeName) => navigateTo(routeName));
 }

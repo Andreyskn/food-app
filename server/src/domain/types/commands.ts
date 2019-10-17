@@ -14,12 +14,10 @@ type CreateOrder = Command<
 		timestamp: Timestamp;
 	}
 >
-
-type SetUserDeclinedStatus = Command<
-	'Set user declined status',
-	UserId
->
+type SetUserDeclinedStatus = Command<'Set user declined status', UserId>;
+type AddParticipant = Command<'Add participant', UserId>;
 
 export type DomainCommand =
 	| CreateOrder
 	| SetUserDeclinedStatus
+	| AddParticipant

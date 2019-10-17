@@ -10,6 +10,7 @@ export const OrderStarted: React.FC = () => {
 	const { activeOrder, ipc } = useContext(AppContext);
 	const { restaurant: { averagePrice, deliveryTime } } = activeOrder!;
 
+	const onJoin = () => ipc.send('JOIN_ORDER');
 	const onDecline = () => ipc.send('DECLINE_ORDER');
 
 	return (
@@ -45,7 +46,7 @@ export const OrderStarted: React.FC = () => {
 			</TileSet>
 
 			<div className='actions'>
-				<Button text='Я тоже хочу есть!' />
+				<Button text='Я тоже хочу есть!' onClick={onJoin} />
 				<Button background='glassy' text='Не сегодня...' onClick={onDecline} />
 			</div>
 		</div>

@@ -48,7 +48,7 @@ export const reducer: Reducer<AppState, Action> = (state = initialState, action)
 			};
 		}
 
-		case 'SET_DECLINED_STATUS':
+		case 'SET_DECLINED_STATUS': {
 			return {
 				...state,
 				user: {
@@ -56,6 +56,18 @@ export const reducer: Reducer<AppState, Action> = (state = initialState, action)
 					status: 'declined',
 				}
 			}
+		}
+
+		case 'JOIN_ORDER': {
+			return {
+				...state,
+				user: {
+					...state.user,
+					status: 'selecting',
+					isHost: false,
+				}
+			}
+		}
 
 		case 'UPDATE_ORDER':
 			return { ...state, activeOrder: action.payload };

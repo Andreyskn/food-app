@@ -15,7 +15,7 @@ export const domain = {
 						name: 'Order created',
 						payload: {
 							order: order.createOrder(restaurantId, hostId, timestamp),
-							users: users.createUser(hostId),
+							users: users.setSelectingStatus(hostId),
 						},
 					};
 				}
@@ -28,6 +28,17 @@ export const domain = {
 							users: users.setDeclinedStatus(command.payload),
 						}
 					};
+				}
+
+				case 'Add participant': {
+					return {
+						type: 'event',
+						name: 'Order updated',
+						payload: {
+							order: order.addParticipant(command.payload),
+							users: users.setSelectingStatus(command.payload),
+						}
+					}
 				}
 
 				default: {

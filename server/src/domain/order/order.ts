@@ -19,4 +19,13 @@ export const order = {
 		}
 		return state;
 	},
+	addParticipant: (userId: UserId) => {
+		if (state.status !== 'selection') throw createError('Order is not in selection state');
+
+		state = {
+			...state,
+			participants: [...state.participants, userId],
+		}
+		return state;
+	}
 }

@@ -9,7 +9,7 @@ const handleResult = (result: DomainResult) => {
 	switch (result.type) {
 		case 'event':
 			const cache = updateCache(result.payload);
-			response$.next({ ...result, payload: cache.order });
+			response$.next({ name: result.name, payload: cache.order });
 			break;
 		case 'error':
 			error$.next(result.error);
@@ -34,6 +34,14 @@ export const domainHandler = (event: UserSocketEvent) => {
 		case 'Order declined': {
 			executeCommand({
 				name: 'Set user declined status',
+				payload: event.userId,
+			});
+			break;
+		}
+
+		case 'User joined': {
+			executeCommand({
+				name: 'Add participant',
 				payload: event.userId,
 			});
 			break;

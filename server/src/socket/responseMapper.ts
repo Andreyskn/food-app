@@ -1,5 +1,5 @@
 import { ResponseEvent } from '../eventStreams';
-import { SocketResponse, SocketConnectedResponse } from './types';
+import { SocketResponse, SocketConnectedResponse, GlobalResponse } from './types';
 import { getCache } from '../repository';
 
 export const responseMapper = (event: ResponseEvent): SocketResponse => {
@@ -19,8 +19,13 @@ export const responseMapper = (event: ResponseEvent): SocketResponse => {
 			}
 		}
 
-		case 'Order created': {
-			return { type: 'global', name: event.name, payload: event.payload }
+		case 'Order created':
+		case 'Order updated': {
+			return {
+				type: 'global',
+				name: event.name,
+				payload: event.payload
+			} as GlobalResponse;
 		}
 
 		case 'User status updated': {

@@ -2,7 +2,7 @@ import { ipcMain, BrowserWindow } from 'electron';
 
 import { RouteName } from 'alias/router'
 import { Order } from 'alias/shared'
-import { store, dispatch, setDeclineStatus } from '../store';
+import { store, dispatch, setDeclineStatus, joinOrder } from '../store';
 import { socket } from '../socket';
 import { IpcMain, WebContents } from './types';
 import { innerEventEmitter } from '../eventEmitter';
@@ -14,16 +14,22 @@ export const runIpcHandler = (win: BrowserWindow) => {
 		webContents.send('UPDATE_STATE', store.getState());
 	});
 
+	const navigateTo = (view: RouteName) => webContents.send('NAVIGATE_TO', view);
+
 	innerEventEmitter.on('Order created', () => {
 		const { user } = store.getState();
 		const nextView: RouteName = user.status === 'selecting' ? 'OrderSelection' : 'OrderStarted';
 
-		webContents.send('CHANGE_VIEW', nextView);
+		navigateTo(nextView);
 	});
 
 	innerEventEmitter.on('Order declined', () => {
-		webContents.send('CHANGE_VIEW', 'Declined');
-	})
+		navigateTo('Declined');
+	});
+
+	innerEventEmitter.on('User joined', () => {
+		navigateTo('OrderSelection');
+	});
 }
 
 const ipc: IpcMain = ipcMain;
@@ -74,4 +80,9 @@ ipc.on('SELECT_RESTAURANT', (_, restaurantId) => {
 ipc.on('DECLINE_ORDER', () => {
 	dispatch(setDeclineStatus());
 	socket.emit('Order declined');
+});
+
+ipc.on('JOIN_ORDER', () => {
+	dispatch(joinOrder());
+	socket.emit('User joined');
 });

@@ -18,8 +18,10 @@ export const Image: React.FC<ImageProps> = (props) => {
 	const { isDefaultProp } = useProps(props, Image.defaultProps!);
 	const imageClass = classnames(
 		imageBlock,
-		{ [imageModifier({ border })]: !isDefaultProp('border') },
-		{ [imageModifier('rounded')]: rounded },
+		{
+			[imageModifier({ border })]: !isDefaultProp('border'),
+			[imageModifier('rounded')]: rounded,
+		},
 	)
 	const imageStyle = width ? { width, height: width } : undefined;
 

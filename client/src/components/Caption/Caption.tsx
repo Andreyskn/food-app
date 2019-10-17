@@ -25,16 +25,20 @@ export const Caption: React.FC<CaptionProps> = (props) => {
 	const { isDefaultProp } = useProps(props, Caption.defaultProps!);
 	const titleClass = classnames(
 		captionBlock,
-		{ [captionModifier({ color })]: !isDefaultProp('color') },
-		{ [captionModifier({ align })]: !isDefaultProp('align') },
-		{ [captionModifier({ size })]: !isDefaultProp('size') },
-		{ [captionModifier({ weight })]: !isDefaultProp('weight') },
+		{
+			[captionModifier({ color })]: !isDefaultProp('color'),
+			[captionModifier({ align })]: !isDefaultProp('align'),
+			[captionModifier({ size })]: !isDefaultProp('size'),
+			[captionModifier({ weight })]: !isDefaultProp('weight'),
+		},
 	)
 
 	const getSubtitleClass = () => classnames(
 		subtitleElement,
-		{ [subtitleModifier('uppercase')]: subtitle!.uppercase },
-		{ [subtitleModifier('brighten')]: subtitle!.brighten },
+		{
+			[subtitleModifier('uppercase')]: subtitle!.uppercase,
+			[subtitleModifier('brighten')]: subtitle!.brighten,
+		},
 	)
 
 	return (

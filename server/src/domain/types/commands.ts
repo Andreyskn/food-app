@@ -1,13 +1,25 @@
+import { RestaurantId, Timestamp } from '../order';
+import { UserId } from '../users';
+
 type Command<N, P> = {
 	name: N;
 	payload: P;
 }
 
-export type CreateOrder = Command<
+type CreateOrder = Command<
 	'Create order',
 	{
-		restaurantId: import('../order').RestaurantId;
-		hostId: import('../users').UserId;
-		timestamp: import('../order').Timestamp;
+		restaurantId: RestaurantId;
+		hostId: UserId;
+		timestamp: Timestamp;
 	}
 >
+
+type SetUserDeclinedStatus = Command<
+	'Set user declined status',
+	UserId
+>
+
+export type DomainCommand =
+	| CreateOrder
+	| SetUserDeclinedStatus

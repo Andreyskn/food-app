@@ -41,4 +41,6 @@ export type TargetResponse = SocketConnectedResponse;
 
 export type GlobalResponse = Exclude<ServerSocketEvent, SocketConnected> & GlobalResponseData;
 
-export type SocketResponse = GlobalResponse | TargetResponse;
+export type NoResponse = { type: 'none' };
+
+export type SocketResponse = GlobalResponse | TargetResponse | NoResponse;

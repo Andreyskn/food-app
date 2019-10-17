@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import './participants.scss';
 import { Image, ImageProps, Caption, CaptionProps } from 'alias/components';
 import { useBEM } from 'alias/utils';
-import { AppContext } from 'alias/app';
+import { AppContext, UserOrdered } from 'alias/app';
 
 type GallerySlot = 'left' | 'middle' | 'right';
 type Gallery = Record<GallerySlot, JSX.Element[]>;
@@ -18,17 +18,15 @@ export const Participants: React.FC = () => {
 	const { user, activeOrder } = useContext(AppContext);
 	const { participants, host } = activeOrder!;
 
+	const userIsHost = (user as UserOrdered).isHost;
+	const userIsParticipant = user.status === 'ordered' && !user.isHost;
+	
 	const gallery: Gallery = { left: [], middle: [], right: [] };
 
-	if (user.status === 'host') {
-		gallery.middle.push(makeImage(user.image, 0));
-	}
-	else {
-		gallery.middle.unshift(makeImage(host.image, 0));
+	gallery.middle.push(makeImage(host.image, 0));
 
-		if (user.status === 'joined') {
-			gallery.middle.push(makeImage(user.image, 1));
-		}
+	if (userIsParticipant) {
+		gallery.middle.push(makeImage(user.image, 1));
 	}
 
 	participants.forEach((p, i) => {
@@ -42,17 +40,17 @@ export const Participants: React.FC = () => {
 
 	const galleryClassName = classnames(
 		galleryElement,
-		{ [galleryModifier('duet')]: user.status === 'joined' },
+		{ [galleryModifier('duet')]: userIsParticipant },
 	)
 
-	const title = user.status === 'host' ? 'Ты' : <Fragment>{host.firstName} <em>{host.lastName}</em></Fragment>;
+	const title = userIsHost ? 'Ты' : <Fragment>{host.firstName} <em>{host.lastName}</em></Fragment>;
 	const subtitle = {
-		text: `+${participants.length} голодающих ${user.status === 'joined' ? 'и ты' : ''}`,
+		text: `+${participants.length} голодающих ${userIsParticipant ? 'и ты' : ''}`,
 	}
 
 	const captionProps: CaptionProps = {
 		align: 'center',
-		color: user.status === 'host' ? 'accent' : 'default',
+		color: userIsHost ? 'accent' : 'default',
 		size: 'small',
 		subtitle,
 	}

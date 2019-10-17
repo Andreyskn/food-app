@@ -6,9 +6,31 @@ export type User = {
 }
 
 export type Participant = User & {
+	status: 'selecting' | 'ordered';
 	bill?: number;
-	status: 'selecting' | 'confirmed';
 }
+
+export type UserIdleData = {
+	status: 'idle',
+}
+
+export type UserSelectingData = {
+	status: 'selecting',
+	isHost: boolean;
+}
+
+export type UserOrderedData = {
+	status: 'ordered',
+	bill: number;
+	order: unknown;
+	isHost: boolean;
+}
+
+export type UserDeclinedData = {
+	status: 'declined',
+}
+
+export type UserData = UserIdleData | UserSelectingData | UserOrderedData | UserDeclinedData;
 
 export type Restaurant = {
 	id: string;
@@ -28,9 +50,9 @@ export type Order = {
 	status: 'selection' | 'delivery' | 'payment';
 
 	host: User;
+	participants: Participant[];
 	restaurant: Restaurant;
 
-	participants: Participant[];
-	selectionEndsAt: number; // timestamp
+	selectionEndsAt?: number; // timestamp
 	deliveryExpectedAt?: number; // timestamp
 }

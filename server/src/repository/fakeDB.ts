@@ -1,4 +1,4 @@
-import { Restaurant, User } from '../../shared';
+import { Restaurant, User } from '../../../shared';
 
 type Storage = {
 	restaurants: Restaurant[];

@@ -1,10 +1,4 @@
-type Error<N, P> = {
+export type DomainError = {
 	type: 'error';
-	name: N;
-	payload: P;
+	error: Error;
 }
-
-export type UnhandledCommand = Error<
-	'Unhandled command',
-	import('./main').Command['name']
->

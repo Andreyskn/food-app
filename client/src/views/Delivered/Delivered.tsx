@@ -4,17 +4,18 @@ import './delivered.scss';
 import { useBEM, price } from 'alias/utils';
 import { Button, Caption, TileSet, Tile, Icon, Text, Image } from 'alias/components';
 import { Bill } from './Bill';
-import { AppContext } from 'alias/app';
+import { AppContext, UserOrdered } from 'alias/app';
 
 const [viewBlock, viewModifier] = useBEM('delivered');
 
 export const Delivered: React.FC = () => {
-	const { user, activeOrder } = useContext(AppContext);
+	const { user: appUser, activeOrder } = useContext(AppContext);
 	const { host } = activeOrder!;
+	const user = appUser as UserOrdered;
 
 	const viewClassName = classnames(
 		viewBlock,
-		{ [viewModifier('participant')]: user.status !== 'host' },
+		{ [viewModifier('participant')]: user.isHost },
 	)
 
 	return (
@@ -26,7 +27,7 @@ export const Delivered: React.FC = () => {
 				<Icon name='truck-delivered' />
 			</div>
 
-			{user.status === 'host' ? (
+			{user.isHost ? (
 				<TileSet direction='column'>
 					<Tile background='contrast'>
 						<Bill />
@@ -45,7 +46,7 @@ export const Delivered: React.FC = () => {
 				</TileSet>
 			)}
 
-			{user.status === 'host' && (
+			{user.isHost && (
 				<div className='actions'>
 					<Button text='Все рассчитались' />
 				</div>

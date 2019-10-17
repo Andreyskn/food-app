@@ -1,4 +1,6 @@
-import { OrderState, RestaurantId, UserId, Timestamp } from './types';
+import { OrderState, RestaurantId, Timestamp } from './types';
+import { UserId } from '../users';
+import { createError } from '../helpers';
 
 let state: OrderState = {
 	status: 'idle',
@@ -6,6 +8,8 @@ let state: OrderState = {
 
 export const order = {
 	createOrder: (restaurant: RestaurantId, host: UserId, startTime: Timestamp) => {
+		if (state.status !== 'idle') throw createError('Order already created');
+
 		state = {
 			status: 'selection',
 			host,

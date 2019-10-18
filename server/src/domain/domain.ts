@@ -1,4 +1,4 @@
-import { order } from './order';
+import { order, OrderActive } from './order';
 import { users } from './users';
 import { DomainCommand, DomainResult } from './types';
 import { createError } from './helpers';
@@ -37,6 +37,19 @@ export const domain = {
 						payload: {
 							order: order.addParticipant(command.payload),
 							users: users.setSelectingStatus(command.payload),
+						}
+					}
+				}
+
+				case 'Take user order': {
+					const { userId, usersOrder } = command.payload;
+
+					return {
+						type: 'event',
+						name: 'Order updated',
+						payload: {
+							order: order.getState() as OrderActive,
+							users: users.setOrderedStatus(userId, usersOrder),
 						}
 					}
 				}

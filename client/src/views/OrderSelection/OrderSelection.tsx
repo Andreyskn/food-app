@@ -20,24 +20,26 @@ type SelectedItem = {
 
 export const OrderSelection: React.FC = () => {
 	const [items, setItems] = useState<SelectedItem[]>([]);
-	const { activeOrder } = useContext(AppContext);
+	const { activeOrder, ipc } = useContext(AppContext);
 	const { restaurant } = activeOrder!;
 
-	const addItem = () => {
-		setItems([
-			...items,
-			{
-				id: Symbol(),
-				name: 'Куринные палочки',
-				category: 'Закуски',
-				price: 150,
-			}
-		]);
-	}
+	// const addItem = () => {
+	// 	setItems([
+	// 		...items,
+	// 		{
+	// 			id: Symbol(),
+	// 			name: 'Куринные палочки',
+	// 			category: 'Закуски',
+	// 			price: 150,
+	// 		}
+	// 	]);
+	// }
 
 	const removeItem = (id: SelectedItem['id']) => () => {
 		setItems(items.filter(item => item.id !== id));
 	}
+
+	const onPlaceOrder = () => ipc.send('PLACE_ORDER', 1);
 
 	return (
 		<div className={viewBlock}>
@@ -85,7 +87,7 @@ export const OrderSelection: React.FC = () => {
 				)}
 
 				<div className='actions'>
-					<Button text='Заказать!' background='accent' onClick={addItem} />{/*  disabled={!items.length}  */}
+					<Button text='Заказать!' background='accent' onClick={onPlaceOrder} />{/*  disabled={!items.length}  */}
 					<Button text='Я передумал...' background='glassy' />
 				</div>
 			</div>

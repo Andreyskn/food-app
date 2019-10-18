@@ -22,7 +22,7 @@ export type UserSelectingData = {
 export type UserOrderedData = {
 	status: 'ordered',
 	bill: number;
-	order: unknown;
+	order: UsersOrder;
 	isHost: boolean;
 }
 
@@ -56,3 +56,5 @@ export type Order = {
 	selectionEndsAt?: number; // timestamp
 	deliveryExpectedAt?: number; // timestamp
 }
+
+export type UsersOrder = any;

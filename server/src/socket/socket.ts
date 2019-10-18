@@ -41,5 +41,6 @@ const socketHandler = (socket: Socket) => {
 		fromEvent('Restaurant chosen'),
 		fromEvent('Order declined'),
 		fromEvent('User joined'),
+		fromEvent('User placed an order'),
 	).subscribe(domain$);
 }

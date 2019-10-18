@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 
 import { USER_ID } from '../config';
 
-import { AppState, AppUser } from 'alias/app';
+import { AppState, AppUser, UserSelecting } from 'alias/app';
 import { Action } from './actions';
 
 const usersData: Record<string, AppUser> = {
@@ -65,6 +65,18 @@ export const reducer: Reducer<AppState, Action> = (state = initialState, action)
 					...state.user,
 					status: 'selecting',
 					isHost: false,
+				}
+			}
+		}
+
+		case 'PLACE_ORDER': {
+			return {
+				...state,
+				user: {
+					...state.user as UserSelecting,
+					status: 'ordered',
+					order: action.payload,
+					bill: 300,
 				}
 			}
 		}

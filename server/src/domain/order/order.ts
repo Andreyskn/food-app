@@ -7,6 +7,8 @@ let state: OrderState = {
 }
 
 export const order = {
+	getState: () => state,
+
 	createOrder: (restaurant: RestaurantId, host: UserId, startTime: Timestamp) => {
 		if (state.status !== 'idle') throw createError('Order already created');
 
@@ -19,6 +21,7 @@ export const order = {
 		}
 		return state;
 	},
+
 	addParticipant: (userId: UserId) => {
 		if (state.status !== 'selection') throw createError('Order is not in selection state');
 

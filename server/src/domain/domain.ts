@@ -21,13 +21,18 @@ export const domain = {
 				}
 
 				case 'Set user declined status': {
-					return {
+					const updatedOrder = order.removeParticipant(command.payload);
+					const updatedUsers = users.setDeclinedStatus(command.payload);
+
+					return updatedOrder ? {
+						type: 'event',
+						name: 'Order updated',
+						payload: { order: updatedOrder, users: updatedUsers },
+					} : {
 						type: 'event',
 						name: 'User status updated',
-						payload: {
-							users: users.setDeclinedStatus(command.payload),
-						}
-					};
+						payload: { users: updatedUsers },
+					}
 				}
 
 				case 'Add participant': {

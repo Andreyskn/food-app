@@ -30,5 +30,27 @@ export const order = {
 			participants: [...state.participants, userId],
 		}
 		return state;
-	}
+	},
+
+	removeParticipant: (userId: UserId) => {
+		switch (state.status) {
+			case 'delivery':
+			case 'payment':
+			case 'finished': {
+				throw createError('Can not decline order at this stage');
+			}
+			case 'idle': {
+				return null;
+			}
+			case 'selection': {
+				if (!state.participants.find(id => id === userId)) return null;
+
+				state = {
+					...state,
+					participants: state.participants.filter(id => id !== userId),
+				}
+				return state;
+			}
+		}
+	},
 }

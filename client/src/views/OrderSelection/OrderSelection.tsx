@@ -40,6 +40,7 @@ export const OrderSelection: React.FC = () => {
 	}
 
 	const onPlaceOrder = () => ipc.send('PLACE_ORDER', 1);
+	const onDecline = () => ipc.send('DECLINE_ORDER');
 
 	return (
 		<div className={viewBlock}>
@@ -88,7 +89,7 @@ export const OrderSelection: React.FC = () => {
 
 				<div className='actions'>
 					<Button text='Заказать!' background='accent' onClick={onPlaceOrder} />{/*  disabled={!items.length}  */}
-					<Button text='Я передумал...' background='glassy' />
+					<Button text='Я передумал...' background='glassy' onClick={onDecline} />
 				</div>
 			</div>
 		</div>

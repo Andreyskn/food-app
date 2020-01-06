@@ -1,5 +1,5 @@
 export type UserId = string;
-export type UserOrder = unknown;
+export type UsersOrder = any;
 
 export type UserDeclined = {
 	status: 'declined';
@@ -14,7 +14,7 @@ export type UserSelecting = {
 export type UserOrdered = {
 	status: 'ordered';
 	id: UserId;
-	order: UserOrder;
+	order: UsersOrder;
 }
 
 export type User = UserDeclined | UserSelecting | UserOrdered;

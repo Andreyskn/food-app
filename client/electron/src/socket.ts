@@ -22,3 +22,6 @@ socket.on('Connected to server', (payload) => {
 socket.on('Order created', (activeOrder) => {
 	dispatch(createOrder(activeOrder));
 });
+socket.on('Order updated', (activeOrder) => {
+	dispatch(action('UPDATE_ORDER', activeOrder));
+});

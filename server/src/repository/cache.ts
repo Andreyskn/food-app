@@ -51,6 +51,6 @@ export const updateCache = (data: { order?: OrderActive, users?: UsersState }) =
 
 	activeOrder = denormalizedOrder;
 	usersData = denormalizedUsers;
-
-	return { order: activeOrder as Order, users: usersData };
+	
+	return { order: activeOrder!, users: usersData };
 }

@@ -1,6 +1,7 @@
 import { UserId } from '../users';
 
 export type Timestamp = number;
+export type Minutes = number;
 export type RestaurantId = string;
 
 export type OrderData = {

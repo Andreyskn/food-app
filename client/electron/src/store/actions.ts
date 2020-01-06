@@ -2,7 +2,7 @@ import { ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
 import { AppState } from 'alias/app';
-import { Order, Restaurant, UserData } from 'alias/shared';
+import { Order, Restaurant, UserData, UsersOrder } from 'alias/shared';
 import { innerEventEmitter } from '../eventEmitter';
 
 type ActionBase<T, P = undefined> = {
@@ -16,6 +16,7 @@ type UpdateOrder = ActionBase<'UPDATE_ORDER', Order>;
 type UpdateRestaurants = ActionBase<'UPDATE_RESTAURANTS', Restaurant[]>;
 type SetDeclinedStatus = ActionBase<'SET_DECLINED_STATUS'>;
 type JoinOrder = ActionBase<'JOIN_ORDER'>;
+type PlaceOrder = ActionBase<'PLACE_ORDER', UsersOrder>;
 
 export type Action =
 	| HydrateStore
@@ -24,6 +25,7 @@ export type Action =
 	| UpdateRestaurants
 	| SetDeclinedStatus
 	| JoinOrder
+	| PlaceOrder
 ;
 
 export function action(type: HydrateStore['type'], payload: HydrateStore['payload']): HydrateStore;
@@ -32,6 +34,7 @@ export function action(type: UpdateOrder['type'], payload: UpdateOrder['payload'
 export function action(type: UpdateRestaurants['type'], payload: UpdateRestaurants['payload']): UpdateRestaurants;
 export function action(type: SetDeclinedStatus['type']): SetDeclinedStatus;
 export function action(type: JoinOrder['type']): JoinOrder;
+export function action(type: PlaceOrder['type'], payload: PlaceOrder['payload']): PlaceOrder;
 export function action(type: Action['type'], payload: Action['payload'] = undefined) {
 	return { type, payload };
 };
@@ -51,4 +54,9 @@ export const setDeclineStatus: ThunkActionCreator<SetDeclinedStatus> = () => dis
 export const joinOrder: ThunkActionCreator<JoinOrder> = () => dispatch => {
 	dispatch(action('JOIN_ORDER'));
 	innerEventEmitter.emit('User joined');
+}
+
+export const placeOrder: ThunkActionCreator<PlaceOrder> = (order: UsersOrder) => dispatch => {
+	dispatch(action('PLACE_ORDER', order));
+	innerEventEmitter.emit('User placed an order');
 }

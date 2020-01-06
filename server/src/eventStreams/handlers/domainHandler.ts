@@ -24,7 +24,7 @@ export const domainHandler = (event: UserSocketEvent) => {
 				name: 'Create order',
 				payload: {
 					hostId: event.userId,
-					restaurantId: event.payload.restaurantId,
+					restaurantId: event.payload,
 					timestamp: event.timestamp,
 				}
 			});
@@ -43,6 +43,17 @@ export const domainHandler = (event: UserSocketEvent) => {
 			executeCommand({
 				name: 'Add participant',
 				payload: event.userId,
+			});
+			break;
+		}
+
+		case 'User placed an order': {
+			executeCommand({
+				name: 'Take user order',
+				payload: {
+					userId: event.userId,
+					usersOrder: event.payload,
+				}
 			});
 			break;
 		}

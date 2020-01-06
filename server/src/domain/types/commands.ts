@@ -1,5 +1,5 @@
 import { RestaurantId, Timestamp } from '../order';
-import { UserId } from '../users';
+import { UserId, UsersOrder } from '../users';
 
 type Command<N, P> = {
 	name: N;
@@ -16,8 +16,10 @@ type CreateOrder = Command<
 >
 type SetUserDeclinedStatus = Command<'Set user declined status', UserId>;
 type AddParticipant = Command<'Add participant', UserId>;
+type TakeUserOrder = Command<'Take user order', { userId: UserId; usersOrder: UsersOrder; }>;
 
 export type DomainCommand =
 	| CreateOrder
 	| SetUserDeclinedStatus
 	| AddParticipant
+	| TakeUserOrder

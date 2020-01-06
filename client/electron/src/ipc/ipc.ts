@@ -1,8 +1,10 @@
 import { ipcMain, BrowserWindow } from 'electron';
+import memoize from 'memoize-one';
 
 import { RouteName } from 'alias/router'
 import { Order } from 'alias/shared'
-import { store, dispatch, setDeclineStatus, joinOrder } from '../store';
+import { AppUser } from 'alias/app';
+import { store, dispatch, setDeclineStatus, joinOrder, placeOrder } from '../store';
 import { socket } from '../socket';
 import { IpcMain, WebContents } from './types';
 import { innerEventEmitter } from '../eventEmitter';
@@ -10,8 +12,18 @@ import { innerEventEmitter } from '../eventEmitter';
 export const runIpcHandler = (win: BrowserWindow) => {
 	const webContents: WebContents = win.webContents;
 
+	const updateState = () => webContents.send('UPDATE_STATE', store.getState());
+
+	const updateStateOnce = memoize((userStatus: AppUser['status']) => updateState());
+
 	store.subscribe(() => {
-		webContents.send('UPDATE_STATE', store.getState());
+		const { user } = store.getState();
+
+		if (user.status === 'selecting') {
+			return updateStateOnce(user.status);
+		}
+
+		updateState();
 	});
 
 	const navigateTo = (view: RouteName) => webContents.send('NAVIGATE_TO', view);
@@ -29,6 +41,10 @@ export const runIpcHandler = (win: BrowserWindow) => {
 
 	innerEventEmitter.on('User joined', () => {
 		navigateTo('OrderSelection');
+	});
+
+	innerEventEmitter.on('User placed an order', () => {
+		navigateTo('OrderPlaced');
 	});
 }
 
@@ -74,7 +90,7 @@ ipc.on('GET_INITIAL_STATE', (event) => {
 });
 
 ipc.on('SELECT_RESTAURANT', (_, restaurantId) => {
-	socket.emit('Restaurant chosen', { restaurantId });
+	socket.emit('Restaurant chosen', restaurantId);
 });
 
 ipc.on('DECLINE_ORDER', () => {
@@ -85,4 +101,9 @@ ipc.on('DECLINE_ORDER', () => {
 ipc.on('JOIN_ORDER', () => {
 	dispatch(joinOrder());
 	socket.emit('User joined');
+});
+
+ipc.on('PLACE_ORDER', (_, order) => {
+	dispatch(placeOrder(order));
+	socket.emit('User placed an order', order);
 });

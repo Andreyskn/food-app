@@ -4,21 +4,21 @@ import {
 	SocketConnected, ServerSocketEvent,
 } from '../../../shared';
 
+// TODO: sort out the types
+
 export type Socket = Omit<SocketIO.Socket, 'on' | 'emit'> & ServerSocket;
 
 // Events
 
-export type UserConnectedEvent = Event<
-	'User connected',
-	{ socketId: Socket['id'] }
->
+export type UserConnectedEvent = Event<'User connected', { socketId: Socket['id'] }>;
+export type SelectionTimeRanOut = Event<'Selection time ran out'>;
 
 export type SocketEventData = {
 	userId: string;
 	timestamp: number;
 }
 
-export type UserSocketEvent = ClientSocketEvent & SocketEventData;
+export type UserSocketEvent = ClientSocketEvent & SocketEventData | SelectionTimeRanOut;
 
 export type SystemSocketEvent = UserConnectedEvent & SocketEventData;
 

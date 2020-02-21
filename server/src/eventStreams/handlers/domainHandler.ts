@@ -1,7 +1,7 @@
 import { response$, error$ } from '../streams';
 import { domain, DomainResult, DomainCommand } from '../../domain';
 import { UserSocketEvent } from '../../socket';
-import { updateCache } from '../../repository';
+import { updateCache, getDeliveryTime } from '../../repository';
 
 const executeCommand = (command: DomainCommand) => handleResult(domain.dispatch(command));
 
@@ -53,6 +53,16 @@ export const domainHandler = (event: UserSocketEvent) => {
 				payload: {
 					userId: event.userId,
 					usersOrder: event.payload,
+				}
+			});
+			break;
+		}
+
+		case 'Selection time ran out': {
+			executeCommand({
+				name: 'Start delivery',
+				payload: {
+					deliveryTime: getDeliveryTime(),
 				}
 			});
 			break;

@@ -54,3 +54,8 @@ export const updateCache = (data: { order?: OrderActive, users?: UsersState }) =
 	
 	return { order: activeOrder!, users: usersData };
 }
+
+export const getDeliveryTime = () => {
+	if (!activeOrder) return 0;
+	return activeOrder.restaurant.deliveryTime;
+}

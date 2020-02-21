@@ -59,6 +59,18 @@ export const domain = {
 					}
 				}
 
+				case 'Start delivery': {
+					const { deliveryTime } = command.payload;
+
+					return {
+						type: 'event',
+						name: 'Delivery started',
+						payload: {
+							order: order.setDeliveryStatus(deliveryTime),
+						}
+					}
+				}
+
 				default: {
 					const unhandled: never = command;
 					throw Error(`Unhandled command: ${unhandled}`);

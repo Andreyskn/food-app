@@ -1,4 +1,4 @@
-import { OrderState, RestaurantId, Timestamp } from './types';
+import { OrderState, RestaurantId, Timestamp, Minutes } from './types';
 import { UserId } from '../users';
 import { createError } from '../helpers';
 
@@ -12,24 +12,22 @@ export const order = {
 	createOrder: (restaurant: RestaurantId, host: UserId, startTime: Timestamp) => {
 		if (state.status !== 'idle') throw createError('Order already created');
 
-		state = {
+		return state = {
 			status: 'selection',
 			host,
 			restaurant,
 			participants: [],
-			selectionEndsAt: startTime + 30 * 60 * 1000,
+			selectionEndsAt: startTime + 30 * 1000,
 		}
-		return state;
 	},
 
 	addParticipant: (userId: UserId) => {
 		if (state.status !== 'selection') throw createError('Order is not in selection state');
 
-		state = {
+		return state = {
 			...state,
 			participants: [...state.participants, userId],
 		}
-		return state;
 	},
 
 	removeParticipant: (userId: UserId) => {
@@ -45,12 +43,21 @@ export const order = {
 			case 'selection': {
 				if (!state.participants.find(id => id === userId)) return null;
 
-				state = {
+				return state = {
 					...state,
 					participants: state.participants.filter(id => id !== userId),
 				}
-				return state;
 			}
 		}
 	},
+
+	setDeliveryStatus: (deliveryTime: Minutes) => {
+		if (state.status !== 'selection') throw createError('Order is not in selection state');
+
+		return state = {
+			...state,
+			status: 'delivery',
+			deliveryExpectedAt: Date.now() + deliveryTime * 60 * 1000,
+		}
+	}
 }

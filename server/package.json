@@ -10,7 +10,7 @@
     "dev": "nodemon --watch src/**/*.ts --exec ts-node src/server.ts"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "rxjs": "^6.5.3",
     "socket.io": "^2.2.0"
   },
